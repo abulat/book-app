@@ -1,21 +1,19 @@
-name: Deploy Website
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # or master, depending on your default branch name
-  pull_request:
-    branches:
-      - main  # or master, depending on your default branch name
+      - main
+  workflow_dispatch:
 
-# Add permissions block
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -32,17 +30,21 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Prepare for deployment
-        run: |
-          cd dist
-          touch .nojekyll
-          # Move all files to root of dist
-          mv src/* .
-          rm -rf src
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
 
-      - name: Deploy to GitHub Pages
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'  # Only deploy on push to main
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          folder: dist  # The folder the action should deploy
-          branch: main  # The branch the action should deploy to 
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2 
