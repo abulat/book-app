@@ -1,0 +1,22 @@
+{
+  "name": "book-app",
+  "version": "1.0.0",
+  "description": "A simple one-page website to showcase a book",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve src",
+    "build": "rm -rf dist && mkdir -p dist && cp -r src/* dist/ && touch dist/.nojekyll",
+    "clean": "rm -rf dist",
+    "dev": "serve src"
+  },
+  "keywords": [
+    "book",
+    "author",
+    "website"
+  ],
+  "author": "Ales Begood",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
