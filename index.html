@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="site.title">Author Name - Writer & Storyteller</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo" data-i18n="author.name">Author Name</div>
+            <ul class="nav-links">
+                <li><a href="#home" data-i18n="nav.home">Home</a></li>
+                <li><a href="#author" data-i18n="nav.about">About</a></li>
+                <li><a href="#books" data-i18n="nav.books">Books</a></li>
+                <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+                <li class="language-switcher">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="by">BY</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 data-i18n="author.name">Author Name</h1>
+            <p class="subtitle" data-i18n="hero.subtitle">Writer & Storyteller</p>
+            <a href="#author" class="cta-button" data-i18n="hero.cta">Discover More</a>
+        </div>
+    </section>
+
+    <section id="author" class="author-section">
+        <div class="container">
+            <h2 data-i18n="author.title">About the Author</h2>
+            <div class="author-content">
+                <div class="author-image">
+                    <!-- Placeholder for author image -->
+                    <div class="image-placeholder"></div>
+                </div>
+                <div class="author-bio">
+                    <p data-i18n="author.bio1">Your compelling author biography will go here. Share your journey, your passion for writing, and what inspired you to write this book.</p>
+                    <p data-i18n="author.bio2">Include your background, achievements, and what makes your perspective unique.</p>
+                    <div class="author-credentials">
+                        <h3 data-i18n="author.credentials.title">Credentials & Achievements</h3>
+                        <ul>
+                            <li data-i18n="author.credentials.achievement1">Notable achievement 1</li>
+                            <li data-i18n="author.credentials.achievement2">Notable achievement 2</li>
+                            <li data-i18n="author.credentials.achievement3">Notable achievement 3</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="books" class="book-section">
+        <div class="container">
+            <h2 data-i18n="books.title">Published Works</h2>
+            <div class="book-content">
+                <div class="book-cover">
+                    <!-- Placeholder for book cover -->
+                    <div class="cover-placeholder"></div>
+                </div>
+                <div class="book-details">
+                    <h3 data-i18n="books.book1.title">Book Title</h3>
+                    <p class="book-description" data-i18n="books.book1.description">A compelling description of your book. What's it about? What makes it special? What will readers gain from reading it?</p>
+                    <div class="book-features">
+                        <div class="feature">
+                            <h4 data-i18n="books.book1.genre.title">Genre</h4>
+                            <p data-i18n="books.book1.genre.value">Your book's genre</p>
+                        </div>
+                        <div class="feature">
+                            <h4 data-i18n="books.book1.pages.title">Pages</h4>
+                            <p data-i18n="books.book1.pages.value">Number of pages</p>
+                        </div>
+                        <div class="feature">
+                            <h4 data-i18n="books.book1.release.title">Release Date</h4>
+                            <p data-i18n="books.book1.release.value">Publication date</p>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-button" data-i18n="books.book1.cta">Get Your Copy</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 data-i18n="contact.title">Get in Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3 data-i18n="contact.info.title">Contact Information</h3>
+                    <p>Email: <a href="mailto:ales@allesbegood.com">ales@allesbegood.com</a></p>
+                    <p data-i18n="contact.info.social">Follow me on social media:</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" data-i18n="contact.social.twitter">Twitter</a>
+                        <a href="#" class="social-link" data-i18n="contact.social.instagram">Instagram</a>
+                        <a href="#" class="social-link" data-i18n="contact.social.linkedin">LinkedIn</a>
+                    </div>
+                </div>
+                <form class="contact-form" action="https://formspree.io/f/xpwdrqbg" method="POST">
+                    <div class="form-group">
+                        <label for="name" data-i18n="contact.form.name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" data-i18n="contact.form.email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" data-i18n="contact.form.message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="cta-button" data-i18n="contact.form.submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p data-i18n="footer.copyright">&copy; 2024 Author Name. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/translations.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html> 
