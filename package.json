@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "serve src",
-    "build": "rm -rf dist && mkdir -p dist && cp -r src/* dist/ && touch dist/.nojekyll",
+    "build": "rm -rf dist && mkdir -p dist/src && cp -r src/* dist/src/",
     "clean": "rm -rf dist",
     "dev": "serve src"
   },

@@ -28,6 +28,14 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Prepare for deployment
+        run: |
+          cd dist
+          touch .nojekyll
+          # Move all files to root of dist
+          mv src/* .
+          rm -rf src
+
       - name: Deploy to GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'  # Only deploy on push to main
         uses: JamesIves/github-pages-deploy-action@v4
