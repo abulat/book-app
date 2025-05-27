@@ -150,13 +150,43 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', function() {
                 const lang = this.getAttribute('data-lang');
                 const img = document.getElementById('book-cover-img');
-                if (lang === 'by') {
-                    img.src = 'images/I-Plakaly-anioly-Cover-BY.png';
-                } else {
-                    img.src = 'images/I-Plakaly-anioly-Cover-EN.png';
-                }
+                img.src = lang === 'by'
+                    ? 'images/I-Plakaly-anioly-Cover-BY.png'
+                    : 'images/I-Plakaly-anioly-Cover-EN.png';
             });
         });
+
+      // Helper to get selected language from localStorage or active button
+  function getCurrentLang() {
+    // Try to get from localStorage (if your language switcher saves it)
+    if (localStorage.getItem('lang')) {
+      return localStorage.getItem('lang');
+    }
+    // Fallback to active button
+    return document.querySelector('.lang-btn.active')?.dataset.lang || 'en';
+  }
+
+  function updateBookCover(lang) {
+    const img = document.getElementById('book-cover-img');
+    if (!img) return;
+    if (lang === 'by') {
+      img.src = 'images/I-Plakaly-anioly-Cover-BY.png';
+    } else {
+      img.src = 'images/I-Plakaly-anioly-Cover-EN.png';
+    }
+  }
+
+  // Initial set using current language
+  updateBookCover(getCurrentLang());
+
+  // Listen for language switch and save to localStorage
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      localStorage.setItem('lang', this.dataset.lang);
+      updateBookCover(this.dataset.lang);
+    });
+  });
+
 
     // Set initial active navigation link
     updateActiveNavLink();

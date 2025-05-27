@@ -7,13 +7,26 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
+    font-size: 20px;
+    line-height: 1.7;
     color: #333;
 }
 
 h1, h2, h3, h4 {
     font-family: 'Playfair Display', serif;
     margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.8rem;
+}
+
+h2 {
+    font-size: 2.2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
 }
 
 .container {
@@ -174,7 +187,8 @@ h1, h2, h3, h4 {
 }
 
 .author-bio {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
+    line-height: 1.8;
 }
 
 .author-bio p {
@@ -210,15 +224,23 @@ h1, h2, h3, h4 {
 }
 
 .book-content {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+    display: flex;
+    align-items: flex-start; /* Align children (including .book-cover) to the top */
     gap: 4rem;
-    align-items: center;
+    flex-wrap: wrap;
 }
 
 .book-cover {
+    flex: 0 0 auto;
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Ensure image is at the top */
+    justify-content: center;
+}
+
+.book-details {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -232,6 +254,7 @@ h1, h2, h3, h4 {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: auto 0; /* Vertically center the image in the column */
 }
 
 .cover-placeholder img {
@@ -249,7 +272,8 @@ h1, h2, h3, h4 {
 }
 
 .feature {
-    text-align: center;
+    font-size: 1rem;
+    text-align: left;
     padding: 1.5rem;
     background-color: #f9f9f9;
     border-radius: 8px;
