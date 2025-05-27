@@ -146,6 +146,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                const img = document.getElementById('book-cover-img');
+                if (lang === 'by') {
+                    img.src = 'images/I-Plakaly-anioly-Cover-BY.png';
+                } else {
+                    img.src = 'images/I-Plakaly-anioly-Cover-EN.png';
+                }
+            });
+        });
+
     // Set initial active navigation link
     updateActiveNavLink();
 
