@@ -40,19 +40,12 @@
             <div class="author-content">
                 <div class="author-image">
                     <!-- Placeholder for author image -->
-                    <div class="image-placeholder"></div>
+                    <div class="image-placeholder">
+                        <img src="images/ales_begood.png" alt="Ales Begood">
+                    </div>
                 </div>
                 <div class="author-bio">
                     <p data-i18n="author.bio1">Your compelling author biography will go here. Share your journey, your passion for writing, and what inspired you to write this book.</p>
-                    <p data-i18n="author.bio2">Include your background, achievements, and what makes your perspective unique.</p>
-                    <div class="author-credentials">
-                        <h3 data-i18n="author.credentials.title">Credentials & Achievements</h3>
-                        <ul>
-                            <li data-i18n="author.credentials.achievement1">Notable achievement 1</li>
-                            <li data-i18n="author.credentials.achievement2">Notable achievement 2</li>
-                            <li data-i18n="author.credentials.achievement3">Notable achievement 3</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
@@ -63,8 +56,13 @@
             <h2 data-i18n="books.title">Published Works</h2>
             <div class="book-content">
                 <div class="book-cover">
-                    <!-- Placeholder for book cover -->
-                    <div class="cover-placeholder"></div>
+                    <div class="cover-placeholder">
+                        <img 
+                            src="images/I-Plakaly-anioly-Cover-EN.png" 
+                            alt="Book Cover" 
+                            id="book-cover-img"
+                        >
+                    </div>
                 </div>
                 <div class="book-details">
                     <h3 data-i18n="books.book1.title">Book Title</h3>
@@ -83,7 +81,27 @@
                             <p data-i18n="books.book1.release.value">Publication date</p>
                         </div>
                     </div>
-                    <a href="#" class="cta-button" data-i18n="books.book1.cta">Get Your Copy</a>
+                    <a 
+                      href="#" 
+                      class="cta-button" 
+                      id="book-action-btn" 
+                      data-i18n="books.book1.cta"
+                      >Get Your Copy</a>
+                    <script>
+                      function handleBookActionClick(e) {
+                        const lang = document.querySelector('.lang-btn.active')?.dataset.lang || 'en';
+                        if (lang === 'en') {
+                          window.open('https://www.amazon.nl/-/en/Ales-Begood-ebook/dp/B0F55M8MLS/', '_blank');
+                        } else if (lang === 'by') {
+                          e.preventDefault();
+                          const contactSection = document.getElementById('contact');
+                          if (contactSection) {
+                            contactSection.scrollIntoView({ behavior: 'smooth' });
+                          }
+                        }
+                      }
+                      document.getElementById('book-action-btn').addEventListener('click', handleBookActionClick);
+                    </script>
                 </div>
             </div>
         </div>
@@ -93,16 +111,6 @@
         <div class="container">
             <h2 data-i18n="contact.title">Get in Touch</h2>
             <div class="contact-content">
-                <div class="contact-info">
-                    <h3 data-i18n="contact.info.title">Contact Information</h3>
-                    <p>Email: <a href="mailto:ales@allesbegood.com">ales@allesbegood.com</a></p>
-                    <p data-i18n="contact.info.social">Follow me on social media:</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link" data-i18n="contact.social.twitter">Twitter</a>
-                        <a href="#" class="social-link" data-i18n="contact.social.instagram">Instagram</a>
-                        <a href="#" class="social-link" data-i18n="contact.social.linkedin">LinkedIn</a>
-                    </div>
-                </div>
                 <form class="contact-form" action="https://formspree.io/f/xpwdrqbg" method="POST">
                     <div class="form-group">
                         <label for="name" data-i18n="contact.form.name">Name</label>
@@ -131,5 +139,6 @@
     <script src="js/translations.js"></script>
     <script src="js/config.js"></script>
     <script src="js/script.js"></script>
+    
 </body>
-</html> 
+</html>
