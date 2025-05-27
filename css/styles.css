@@ -10,6 +10,7 @@ body {
     font-size: 20px;
     line-height: 1.7;
     color: #333;
+    padding-top: 80px; /* Adjust to your navbar height */
 }
 
 h1, h2, h3, h4 {
@@ -37,10 +38,11 @@ h3 {
 
 /* Navigation */
 .navbar {
-    position: relative;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    width: 100%;
     background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
@@ -50,14 +52,15 @@ h3 {
     display: flex;
     justify-content: flex-start; /* Align items to the left */
     align-items: center;
-    padding: 1rem 2rem;
-    max-width: 1200px;
+    padding: 1rem 1rem;
+    max-width: 1400px;
     margin: 0 auto;
     position: relative;
 }
 
 .logo {
     margin-right: 2rem;
+    margin-left: 1em;
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
     font-weight: 700;
@@ -72,6 +75,7 @@ h3 {
 .nav-links {
     display: flex;
     list-style: none;
+    left: 1.5em;
     gap: 2rem;
     align-items: center;
     margin-right: 0; /* Remove extra space */
@@ -365,8 +369,8 @@ footer {
 /* Language Switcher */
 .language-switcher {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+    top: 1.5rem;
+    right: 1.5rem;
     margin-left: 0;
     z-index: 1100;
     background: transparent;
