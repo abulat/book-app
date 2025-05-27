@@ -148,12 +148,29 @@ h1, h2, h3, h4 {
     align-items: start;
 }
 
+.author-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .image-placeholder {
+    width: 360px;         /* Set your preferred width */
+    aspect-ratio: 1/1;    /* Makes it a square */
+    overflow: hidden;
+    border-radius: 50%;   /* Makes the image circular */
+    background: #f2f2f2;  /* Light background for placeholder */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.image-placeholder img {
     width: 100%;
-    padding-bottom: 100%;
-    background-color: #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .author-bio {
@@ -389,4 +406,4 @@ footer {
 
 .message.fade-out {
     opacity: 0;
-} 
+}
