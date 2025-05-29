@@ -42,7 +42,7 @@ window.translations = {
         'author.name': 'Алесь Бігуд',
         'site.authorName': 'Алесь Бігуд',
         'nav.home': 'Галоўная',
-        'nav.about': 'Аўтара',
+        'nav.about': 'Пра аўтара',
         'nav.books': 'Кнігі',
         'nav.contact': 'Кантакты',
         'hero.title': 'Алесь Бігуд',
