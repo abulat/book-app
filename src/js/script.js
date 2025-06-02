@@ -219,4 +219,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    function handleBookActionClick(e) {
+          const lang = document.querySelector('.lang-btn.active')?.dataset.lang || 'en';
+          if (lang === 'en') {
+            window.open('https://www.amazon.nl/-/en/Ales-Begood-ebook/dp/B0F55M8MLS/', '_blank');
+          } else if (lang === 'by') {
+            e.preventDefault();
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+              contactSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }
+    document.getElementById('book-action-btn').addEventListener('click', handleBookActionClick);
 }); 
