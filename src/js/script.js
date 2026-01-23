@@ -192,33 +192,54 @@ document.addEventListener('DOMContentLoaded', () => {
     updateActiveNavLink();
 
     // Handle form submission
-    const form = document.querySelector('.contact-form');
-    if (form) {
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            try {
-                const formData = new FormData(this);
-                const response = await fetch(window.config.formspree.endpoint, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-
-                if (response.ok) {
-                    showMessage(window.translations[currentLang]['contact.form.success'], 'success');
-                    this.reset();
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            } catch (error) {
-                console.error('Error handling form submission:', error);
-                showMessage(window.translations[currentLang]['contact.form.error'], 'error');
+    document.addEventListener('DOMContentLoaded', function () {
+      const contactForm = document.querySelector('.contact-form');
+      
+      if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          
+          const formData = new FormData(this);
+          
+          fetch(config.formspree.endpoint, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
             }
+          })
+          .then(response => {
+            if (response.ok) {
+              alert('Thank you for your message! We will get back to you soon.');
+              contactForm.reset();
+            } else {
+              alert('There was an error sending your message. Please try again.');
+            }
+          })
+          .catch(error => {
+            console.error('Error handling form submission:', error);
+            alert('There was an error sending your message. Please try again.');
+          });
         });
-    }
+      }
+
+      // Handle "Get Your Copy" / "Купіць Кнігу" button click
+      const bookActionBtn = document.getElementById('book-action-btn');
+      if (bookActionBtn) {
+        bookActionBtn.addEventListener('click', handleBookActionClick);
+      }
+
+      // Initial cover image
+      updateBookCover(getCurrentLang());
+
+      // Language switcher
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          localStorage.setItem('lang', this.dataset.lang);
+          updateBookCover(this.dataset.lang);
+        });
+      });
+    });
 
     function handleBookActionClick(e) {
           const lang = document.querySelector('.lang-btn.active')?.dataset.lang || 'en';
@@ -233,4 +254,4 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
     document.getElementById('book-action-btn').addEventListener('click', handleBookActionClick);
-}); 
+});
