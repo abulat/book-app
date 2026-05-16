@@ -1,0 +1,17 @@
+{
+  "name": "book-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "http-server src -p 8080",
+    "build": "mkdir -p dist && cp -r src/* dist/",
+    "preview": "http-server dist -p 8080",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "jsdom": "^27.0.1",
+    "vitest": "^1.4.0"
+  }
+}

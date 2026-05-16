@@ -22,7 +22,7 @@
 <body>
     <nav class="navbar">
         <div class="nav-content">
-            <div class="logo" data-i18n="author.name">Ales Begood</div>
+            <div class="logo" id="site-author-name">Ales Begood</div>
             <ul class="nav-links">
                 <li><a href="#home" data-i18n="nav.home">Home</a></li>
                 <li><a href="#author" data-i18n="nav.about">About</a></li>
@@ -38,7 +38,7 @@
 
     <section id="home" class="hero">
         <div class="hero-content">
-            <h1 data-i18n="author.name">Author Name</h1>
+            <h1 id="author-name">Author Name</h1>
             <p class="subtitle" data-i18n="hero.subtitle">Writer & Storyteller</p>
             <a href="#author" class="cta-button" data-i18n="hero.cta">Discover More</a>
         </div>
@@ -46,7 +46,7 @@
 
     <section id="author" class="author-section">
         <div class="container">
-            <h2 data-i18n="author.title">About the Author</h2>
+            <h2 data-i18n="nav.about">About the Author</h2>
             <div class="author-content">
                 <div class="author-image">
                     <!-- Placeholder for author image -->
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="author-bio">
-                    <p data-i18n="author.bio1">Your compelling author biography will go here. Share your journey, your passion for writing, and what inspired you to write this book.</p>
+                    <p id="author-bio">Your compelling author biography will go here. Share your journey, your passion for writing, and what inspired you to write this book.</p>
                 </div>
             </div>
         </div>
@@ -64,40 +64,8 @@
     <section id="books" class="book-section">
         <div class="container">
             <h2 data-i18n="books.title">Published Works</h2>
-            <div class="book-content">
-                <div class="book-cover">
-                    <div class="cover-placeholder">
-                        <img 
-                            src="images/I-Plakaly-anioly-Cover-EN.png" 
-                            alt="Book Cover" 
-                            id="book-cover-img"
-                        >
-                    </div>
-                </div>
-                <div class="book-details">
-                    <h3 data-i18n="books.book1.title">Book Title</h3>
-                    <p class="book-description" data-i18n="books.book1.description">A compelling description of your book. What's it about? What makes it special? What will readers gain from reading it?</p>
-                    <div class="book-features">
-                        <div class="feature">
-                            <h4 data-i18n="books.book1.genre.title">Genre</h4>
-                            <p data-i18n="books.book1.genre.value">Your book's genre</p>
-                        </div>
-                        <div class="feature">
-                            <h4 data-i18n="books.book1.pages.title">Pages</h4>
-                            <p data-i18n="books.book1.pages.value">Number of pages</p>
-                        </div>
-                        <div class="feature">
-                            <h4 data-i18n="books.book1.release.title">Release Date</h4>
-                            <p data-i18n="books.book1.release.value">Publication date</p>
-                        </div>
-                    </div>
-                    <a 
-                      href="#" 
-                      class="cta-button" 
-                      id="book-action-btn" 
-                      data-i18n="books.book1.cta"
-                      >Get Your Copy</a>
-                </div>
+            <div id="books-container" class="books-container">
+                <!-- Books will be rendered here by JavaScript -->
             </div>
         </div>
     </section>
@@ -131,9 +99,7 @@
         </div>
     </footer>
 
-    <script src="js/translations.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/script.js"></script>
+    <script type="module" src="js/script.js"></script>
     
 </body>
 </html>
