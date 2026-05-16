@@ -30,6 +30,12 @@ h3 {
     font-size: 1.5rem;
 }
 
+hr {
+    width: 100%;
+    margin: 20px;
+}
+
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -240,7 +246,7 @@ h3 {
 .book-content {
     display: flex;
     align-items: flex-start; /* Align children (including .book-cover) to the top */
-    gap: 4rem;
+    gap: 1rem 4em;
     flex-wrap: wrap;
 }
 
