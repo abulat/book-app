@@ -130,7 +130,7 @@ export function renderBooks(lang) {
 
   container.innerHTML = '';
   state.books.forEach(book => {
-    container.appendChild(createBookElement(book, lang));
+    container.appendChild(createBookElement(book, lang)).appendChild(document.createElement('hr'));
   });
 
   attachBookActionHandlers();
