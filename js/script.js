@@ -1,257 +1,107 @@
-// Language switching functionality
-let currentLang = 'en';
+import { config } from './config.js';
+import { getDefaultLanguage, loadTranslationsData, loadAuthorData, loadBookData, setLanguage } from './app.js';
 
-// Function to show messages in the message panel
-function showMessage(message, type = 'info') {
-    // Create message panel if it doesn't exist
-    let messagePanel = document.querySelector('.message-panel');
-    if (!messagePanel) {
-        messagePanel = document.createElement('div');
-        messagePanel.className = 'message-panel';
-        document.body.appendChild(messagePanel);
-    }
-
-    // Create message element
-    const messageElement = document.createElement('div');
-    messageElement.className = `message ${type}`;
-    messageElement.textContent = message;
-    messagePanel.appendChild(messageElement);
-
-    // Remove message after 5 seconds
-    setTimeout(() => {
-        messageElement.classList.add('fade-out');
-        setTimeout(() => {
-            messageElement.remove();
-            // Remove message panel if it's empty
-            if (messagePanel.children.length === 0) {
-                messagePanel.remove();
-            }
-        }, 300); // Wait for fade-out animation
-    }, 5000);
+function attachLanguageButtons() {
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', event => {
+      event.preventDefault();
+      const lang = btn.dataset.lang;
+      setLanguage(lang);
+    });
+  });
 }
 
-// Function to set language
-function setLanguage(lang) {
-    if (!window.translations[lang]) {
-        console.error(`Language ${lang} not found in translations`);
-        return;
-    }
-
-    // Update HTML lang attribute
-    document.documentElement.lang = lang;
-    currentLang = lang;
-
-    // Update active language button
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+function attachSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (event) {
+      const targetId = this.getAttribute('href');
+      const target = document.querySelector(targetId);
+      if (target) {
+        event.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
-
-    // Update all elements with data-i18n attribute
-    document.querySelectorAll('[data-i18n]').forEach(element => {
-        const key = element.getAttribute('data-i18n');
-        if (window.translations[lang][key]) {
-            element.textContent = window.translations[lang][key];
-        }
-    });
-
-    // Save language preference
-    localStorage.setItem('preferredLanguage', lang);
+  });
 }
 
-// Function to update active navigation link
-function updateActiveNavLink() {
+function attachScrollSpy() {
+  window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
-    
-    // Get current scroll position with offset
     const scrollPosition = window.scrollY + 100;
     const windowHeight = window.innerHeight;
     const documentHeight = document.documentElement.scrollHeight;
-
-    // Find the current section
     let currentSection = '';
+
     sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionBottom = sectionTop + sectionHeight;
-
-        // Check if we're at the bottom of the page
-        if (scrollPosition + windowHeight >= documentHeight - 100) {
-            // If we're at the bottom, activate the last section
-            currentSection = sections[sections.length - 1].getAttribute('id');
-        } else if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            currentSection = section.getAttribute('id');
-        }
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      if (scrollPosition + windowHeight >= documentHeight - 100) {
+        currentSection = sections[sections.length - 1].getAttribute('id');
+      } else if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        currentSection = section.getAttribute('id');
+      }
     });
 
-    // Update active state of navigation links
     navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${currentSection}`) {
-            link.classList.add('active');
-        }
+      link.classList.toggle('active', link.getAttribute('href') === `#${currentSection}`);
     });
+
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+      navbar.style.background = window.scrollY > 0 ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)';
+    }
+  });
 }
 
-// Initialize language from localStorage or default to English
-document.addEventListener('DOMContentLoaded', () => {
-    // Get user's preferred language from browser
-    const userLang = navigator.language || navigator.userLanguage;
-    const savedLang = localStorage.getItem('preferredLanguage');
-    
-    // Set default language based on conditions
-    let defaultLang = 'en';
-    if (!savedLang && (userLang === 'ru' || userLang === 'ru-RU' || !userLang)) {
-        defaultLang = 'by';
-    }
-    
-    // Use saved language if available, otherwise use default
-    const initialLang = savedLang || defaultLang;
-    setLanguage(initialLang);
+function attachFormHandler() {
+  const contactForm = document.querySelector('.contact-form');
+  if (!contactForm) {
+    return;
+  }
 
-    // Add click event listeners to language buttons
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const lang = btn.getAttribute('data-lang');
-            setLanguage(lang);
-        });
-    });
+  contactForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const formData = new FormData(contactForm);
 
-    // Add smooth scrolling to navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const target = document.querySelector(targetId);
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Update active navigation link on scroll
-    window.addEventListener('scroll', () => {
-        updateActiveNavLink();
-        
-        // Change navbar background
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 0) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+    fetch(config.formspree.endpoint, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          alert('Thank you for your message! We will get back to you soon.');
+          contactForm.reset();
         } else {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+          alert('There was an error sending your message. Please try again.');
         }
-    });
-
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const lang = this.getAttribute('data-lang');
-                const img = document.getElementById('book-cover-img');
-                img.src = lang === 'by'
-                    ? 'images/I-Plakaly-anioly-Cover-BY.png'
-                    : 'images/I-Plakaly-anioly-Cover-EN.png';
-            });
-        });
-
-      // Helper to get selected language from localStorage or active button
-  function getCurrentLang() {
-    // Try to get from localStorage (if your language switcher saves it)
-    if (localStorage.getItem('lang')) {
-      return localStorage.getItem('lang');
-    }
-    // Fallback to active button
-    return document.querySelector('.lang-btn.active')?.dataset.lang || 'en';
-  }
-
-  function updateBookCover(lang) {
-    const img = document.getElementById('book-cover-img');
-    if (!img) return;
-    if (lang === 'by') {
-      img.src = 'images/I-Plakaly-anioly-Cover-BY.png';
-    } else {
-      img.src = 'images/I-Plakaly-anioly-Cover-EN.png';
-    }
-  }
-
-  // Initial set using current language
-  updateBookCover(getCurrentLang());
-
-  // Listen for language switch and save to localStorage
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      localStorage.setItem('lang', this.dataset.lang);
-      updateBookCover(this.dataset.lang);
-    });
-  });
-
-
-    // Set initial active navigation link
-    updateActiveNavLink();
-
-    // Handle form submission
-    document.addEventListener('DOMContentLoaded', function () {
-      const contactForm = document.querySelector('.contact-form');
-      
-      if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
-          e.preventDefault();
-          
-          const formData = new FormData(this);
-          
-          fetch(config.formspree.endpoint, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'Accept': 'application/json'
-            }
-          })
-          .then(response => {
-            if (response.ok) {
-              alert('Thank you for your message! We will get back to you soon.');
-              contactForm.reset();
-            } else {
-              alert('There was an error sending your message. Please try again.');
-            }
-          })
-          .catch(error => {
-            console.error('Error handling form submission:', error);
-            alert('There was an error sending your message. Please try again.');
-          });
-        });
-      }
-
-      // Handle "Get Your Copy" / "Купіць Кнігу" button click
-      const bookActionBtn = document.getElementById('book-action-btn');
-      if (bookActionBtn) {
-        bookActionBtn.addEventListener('click', handleBookActionClick);
-      }
-
-      // Initial cover image
-      updateBookCover(getCurrentLang());
-
-      // Language switcher
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
-          localStorage.setItem('lang', this.dataset.lang);
-          updateBookCover(this.dataset.lang);
-        });
+      })
+      .catch(error => {
+        console.error('Error handling form submission:', error);
+        alert('There was an error sending your message. Please try again.');
       });
-    });
+  });
+}
 
-    function handleBookActionClick(e) {
-          const lang = document.querySelector('.lang-btn.active')?.dataset.lang || 'en';
-          if (lang === 'en') {
-            window.open('https://www.amazon.nl/-/en/Ales-Begood-ebook/dp/B0F55M8MLS/', '_blank');
-          } else if (lang === 'by') {
-            e.preventDefault();
-            const contactSection = document.getElementById('contact');
-            if (contactSection) {
-              contactSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }
-    document.getElementById('book-action-btn').addEventListener('click', handleBookActionClick);
-});
+async function initialize() {
+  const initialLang = getDefaultLanguage(localStorage.getItem('preferredLanguage'), navigator.language || navigator.userLanguage);
+
+  try {
+    await loadTranslationsData();
+    await loadAuthorData();
+    await loadBookData();
+  } catch (error) {
+    console.warn('Data load failed:', error);
+  }
+
+  setLanguage(initialLang);
+  attachLanguageButtons();
+  attachSmoothScroll();
+  attachScrollSpy();
+  attachFormHandler();
+}
+
+document.addEventListener('DOMContentLoaded', initialize);

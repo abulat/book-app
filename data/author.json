@@ -1,0 +1,19 @@
+{
+  "author": {
+    "name": {
+      "en": "Ales Begood",
+      "by": "Алесь Бігуд"
+    },
+    "bio": {
+      "en": "Ales Begood is a Belarusian author. He has been writing poems and short stories all his life, but they might have remained unpublished if not for the events that followed the 2020 presidential election in his home country — Belarus. For Ales, the printed word became a way to speak about pain, hope, and human dignity — the things he saw in the eyes of the people around him. He believes that words have the power to bear witness to the truth, even when others remain silent.",
+      "by": "Алесь Бігуд — беларускі аўтар. Ён піша вершы і кароткія апавяданні ўсё сваё жыццё, але яны так бы і засталіся невыданымі, калі б не падзеі, што адбыліся пасля прэзідэнцкіх выбараў 2020 года ў ягонай краіне — Беларусі. Для Алеся надрукаванае слова стала спосабам гаварыць пра боль, надзею і чалавечую годнасць, якія ён бачыў у вачах людзей вакол сябе. Ён верыць, што слова здольнае сведчыць пра праўду — нават тады, калі маўчаць іншыя."
+    },
+    "image": "images/ales_begood.png",
+    "email": "ales@allesbegood.com",
+    "social": {
+      "twitter": "https://twitter.com/alesbegood",
+      "instagram": "https://instagram.com/alesbegood",
+      "linkedin": "https://linkedin.com/in/alesbegood"
+    }
+  }
+}
