@@ -560,13 +560,6 @@ body, html {
     }
 }
 
-@media (max-width: 768px) {
-    .language-switcher {
-        position: static; /* Removes absolute floating */
-        margin: 0.5rem auto; /* Centers it nicely in the stacked menu */
-    }
-}
-
 /* Responsive Design */
 @media (max-width: 900px) {
     .container {
