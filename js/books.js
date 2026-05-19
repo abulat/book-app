@@ -7,7 +7,8 @@ import { getState } from './state.js';
 const DOM = {
   booksContainer: 'books-container',
   contactSection: 'contact',
-  bookActionBtn: '.book-action-btn'
+  bookActionBtn: '.book-action-btn',
+  booksScrollWrapper: 'books-scroll-wrapper'
 };
 
 /**
@@ -29,30 +30,43 @@ function getLocalizedValue(obj, lang) {
  */
 function buildBookHTML(book, lang) {
   const get = (field) => getLocalizedValue(field, lang) || '';
+  const coverSrc = get(book.cover) || 'images/placeholder-cover.png';
+  
+  // Format genre values as tags
+  const genreValue = get(book.genre?.value) || '';
+  const genreTags = genreValue
+    .split(',')
+    .map(tag => `<span class="genre-tag">${tag.trim()}</span>`)
+    .join('');
   
   return `
     <div class="book-cover">
-      <div class="cover-placeholder">
-        <img src="${get(book.cover) || 'images/placeholder-cover.png'}" alt="${get(book.title)}" class="book-cover-img">
+      <div class="cover-wrapper">
+        <div class="cover-placeholder">
+          <img src="${coverSrc}" alt="${get(book.title)}" class="book-cover-img">
+        </div>
+        <div class="cover-popup-overlay">
+          <img src="${coverSrc}" alt="${get(book.title)}" class="cover-popup-img">
+        </div>
+      </div>
+      <div class="cover-metadata">
+        <div class="metadata-item">
+          <h4 class="metadata-label">${get(book.genre?.title) || 'Genre'}</h4>
+          <p class="metadata-value">${genreTags}</p>
+        </div>
+        <div class="metadata-item">
+          <h4 class="metadata-label">${get(book.pages?.title) || 'Pages'}</h4>
+          <p class="metadata-value">${get(book.pages?.value)}</p>
+        </div>
+        <div class="metadata-item">
+          <h4 class="metadata-label">${get(book.release?.title) || 'Release Date'}</h4>
+          <p class="metadata-value">${get(book.release?.value)}</p>
+        </div>
       </div>
     </div>
     <div class="book-details">
       <h3 class="book-title">${get(book.title) || 'Book Title'}</h3>
       <p class="book-description">${get(book.description)}</p>
-      <div class="book-features">
-        <div class="feature">
-          <h4 class="book-genre-title">${get(book.genre?.title) || 'Genre'}</h4>
-          <p class="book-genre-value">${get(book.genre?.value)}</p>
-        </div>
-        <div class="feature">
-          <h4 class="book-pages-title">${get(book.pages?.title) || 'Pages'}</h4>
-          <p class="book-pages-value">${get(book.pages?.value)}</p>
-        </div>
-        <div class="feature">
-          <h4 class="book-release-title">${get(book.release?.title) || 'Release Date'}</h4>
-          <p class="book-release-value">${get(book.release?.value)}</p>
-        </div>
-      </div>
       <a href="${lang === 'en' && book.amazonUrl ? book.amazonUrl : '#contact'}" class="cta-button book-action-btn">${get(book.cta) || 'Get Your Copy'}</a>
     </div>
   `;
@@ -114,6 +128,53 @@ function attachBookActionHandlers() {
 }
 
 /**
+ * Scroll carousel left or right
+ * @param {string} direction - 'left' or 'right'
+ */
+function scrollCarousel(direction) {
+  const container = document.getElementById(DOM.booksContainer);
+  if (!container) return;
+
+  // Scroll by one book width (80% of container) plus gap
+  const scrollAmount = container.clientWidth * 0.8 + 3 * 16; // 3rem gap in pixels (assuming 16px = 1rem)
+  const targetScroll = direction === 'left' 
+    ? container.scrollLeft - scrollAmount 
+    : container.scrollLeft + scrollAmount;
+
+  container.scrollTo({
+    left: targetScroll,
+    behavior: 'smooth'
+  });
+}
+
+/**
+ * Attach keyboard navigation to carousel
+ */
+function attachKeyboardNavigation() {
+  document.addEventListener('keydown', event => {
+    if (event.key === 'ArrowLeft') {
+      scrollCarousel('left');
+    } else if (event.key === 'ArrowRight') {
+      scrollCarousel('right');
+    }
+  });
+}
+
+/**
+ * Attach click handlers to carousel arrow buttons
+ */
+function attachArrowButtonHandlers() {
+  document.querySelectorAll('.carousel-arrow').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const direction = btn.dataset.direction;
+      if (direction === 'left' || direction === 'right') {
+        scrollCarousel(direction);
+      }
+    });
+  });
+}
+
+/**
  * Render all books for specified language
  * @param {string} lang - Language code
  */
@@ -130,10 +191,12 @@ export function renderBooks(lang) {
 
   container.innerHTML = '';
   state.books.forEach(book => {
-    container.appendChild(createBookElement(book, lang)).appendChild(document.createElement('hr'));
+    container.appendChild(createBookElement(book, lang));
   });
 
   attachBookActionHandlers();
+  attachKeyboardNavigation();
+  attachArrowButtonHandlers();
 }
 
 /**
