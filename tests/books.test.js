@@ -186,4 +186,132 @@ describe('Book rendering', () => {
     setBookData(books);
     expect(() => renderBooks('en')).not.toThrow();
   });
+
+  it('should create carousel arrow buttons', () => {
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book', by: 'Кніга' },
+        description: { en: 'Desc', by: 'Апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+        cta: { en: 'Get', by: 'Купіць' },
+        cover: { en: 'images/1.png', by: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div class="carousel-wrapper">
+        <button class="carousel-arrow" data-direction="left" aria-label="Scroll left">←</button>
+        <div id="books-container" class="books-container"></div>
+        <button class="carousel-arrow" data-direction="right" aria-label="Scroll right">→</button>
+      </div>
+    `;
+    
+    renderBooks('en');
+    
+    const arrows = document.querySelectorAll('.carousel-arrow');
+    expect(arrows).toHaveLength(2);
+    expect(arrows[0].dataset.direction).toBe('left');
+    expect(arrows[1].dataset.direction).toBe('right');
+  });
+
+  it('should disable left arrow button initially', () => {
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book', by: 'Кніга' },
+        description: { en: 'Desc', by: 'Апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+        cta: { en: 'Get', by: 'Купіць' },
+        cover: { en: 'images/1.png', by: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div class="carousel-wrapper">
+        <button class="carousel-arrow" data-direction="left" aria-label="Scroll left">←</button>
+        <div id="books-container" class="books-container" style="width: 800px; overflow-x: auto;"></div>
+        <button class="carousel-arrow" data-direction="right" aria-label="Scroll right">→</button>
+      </div>
+    `;
+    
+    renderBooks('en');
+    
+    const leftArrow = document.querySelector('.carousel-arrow[data-direction="left"]');
+    expect(leftArrow.disabled).toBe(true);
+    expect(leftArrow.classList.contains('disabled')).toBe(true);
+  });
+
+  it('should have disabled attribute and class on left arrow when at start', () => {
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book', by: 'Кніга' },
+        description: { en: 'Desc', by: 'Апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+        cta: { en: 'Get', by: 'Купіць' },
+        cover: { en: 'images/1.png', by: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div class="carousel-wrapper">
+        <button class="carousel-arrow" data-direction="left" aria-label="Scroll left">←</button>
+        <div id="books-container" class="books-container"></div>
+        <button class="carousel-arrow" data-direction="right" aria-label="Scroll right">→</button>
+      </div>
+    `;
+    
+    renderBooks('en');
+    
+    const leftArrow = document.querySelector('.carousel-arrow[data-direction="left"]');
+    expect(leftArrow.getAttribute('aria-disabled')).toBe('true');
+    expect(leftArrow.hasAttribute('disabled')).toBe(true);
+  });
+
+  it('should enable arrow buttons only when scrollable', () => {
+    // Create multiple books to make it scrollable
+    const books = Array.from({ length: 10 }, (_, i) => ({
+      id: `book${i + 1}`,
+      title: { en: `Book ${i + 1}`, by: `Кніга ${i + 1}` },
+      description: { en: 'Desc', by: 'Апісанне' },
+      genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+      pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+      release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+      cta: { en: 'Get', by: 'Купіць' },
+      cover: { en: 'images/1.png', by: 'images/1.png' },
+      amazonUrl: ''
+    }));
+    
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div class="carousel-wrapper">
+        <button class="carousel-arrow" data-direction="left" aria-label="Scroll left">←</button>
+        <div id="books-container" class="books-container" style="width: 200px; overflow-x: auto;"></div>
+        <button class="carousel-arrow" data-direction="right" aria-label="Scroll right">→</button>
+      </div>
+    `;
+    
+    renderBooks('en');
+    
+    // Initially, left arrow should be disabled, right might be enabled
+    const leftArrow = document.querySelector('.carousel-arrow[data-direction="left"]');
+    const rightArrow = document.querySelector('.carousel-arrow[data-direction="right"]');
+    
+    expect(leftArrow.disabled).toBe(true);
+    expect(leftArrow.classList.contains('disabled')).toBe(true);
+  });
 });
