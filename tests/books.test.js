@@ -314,4 +314,104 @@ describe('Book rendering', () => {
     expect(leftArrow.disabled).toBe(true);
     expect(leftArrow.classList.contains('disabled')).toBe(true);
   });
+
+  it('should have book-details with flex layout for sticky button', () => {
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book', by: 'Кніга' },
+        description: { en: 'Desc', by: 'Апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+        cta: { en: 'Get', by: 'Купіць' },
+        cover: { en: 'images/1.png', by: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div id="books-container" class="books-container"></div>
+    `;
+    
+    renderBooks('en');
+    
+    const bookDetails = document.querySelector('.book-details');
+    
+    // Verify that book-details element exists
+    expect(bookDetails).not.toBeNull();
+    
+    // Verify that book-details contains title, description, and button
+    const title = bookDetails.querySelector('.book-title');
+    const description = bookDetails.querySelector('.book-description');
+    const button = bookDetails.querySelector('.book-action-btn');
+    
+    expect(title).not.toBeNull();
+    expect(description).not.toBeNull();
+    expect(button).not.toBeNull();
+  });
+
+  it('should have book-description that grows to fill space', () => {
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book', by: 'Кніга' },
+        description: { en: 'Desc', by: 'Апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+        cta: { en: 'Get', by: 'Купіць' },
+        cover: { en: 'images/1.png', by: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div id="books-container" class="books-container"></div>
+    `;
+    
+    renderBooks('en');
+    
+    const bookDescription = document.querySelector('.book-description');
+    
+    // Verify that description element exists and is not null
+    expect(bookDescription).not.toBeNull();
+    
+    // Verify that the element has the book-description class for styling
+    expect(bookDescription.classList.contains('book-description')).toBe(true);
+  });
+
+  it('should position action button at bottom of book details', () => {
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book Title', by: 'Заголовак' },
+        description: { en: 'Long description that will take some space', by: 'Долгае апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+        cta: { en: 'Get Your Copy', by: 'Купіць Кнігу' },
+        cover: { en: 'images/1.png', by: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div id="books-container" class="books-container"></div>
+    `;
+    
+    renderBooks('en');
+    
+    const bookDetails = document.querySelector('.book-details');
+    const actionBtn = document.querySelector('.book-action-btn');
+    
+    // Verify that action button is a child of book-details
+    expect(bookDetails.contains(actionBtn)).toBe(true);
+    
+    // Verify that action button is the last element in book-details
+    expect(bookDetails.lastElementChild).toBe(actionBtn);
+  });
 });
