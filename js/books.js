@@ -128,6 +128,32 @@ function attachBookActionHandlers() {
 }
 
 /**
+ * Update carousel arrow button visibility and disabled state
+ */
+function updateArrowButtonState() {
+  const container = document.getElementById(DOM.booksContainer);
+  const leftBtn = document.querySelector('.carousel-arrow[data-direction="left"]');
+  const rightBtn = document.querySelector('.carousel-arrow[data-direction="right"]');
+
+  if (!container || !leftBtn || !rightBtn) return;
+
+  const canScrollLeft = container.scrollLeft > 0;
+  const canScrollRight = container.scrollLeft < container.scrollWidth - container.clientWidth - 1;
+
+  // Update disabled state based on scroll position
+  leftBtn.disabled = !canScrollLeft;
+  rightBtn.disabled = !canScrollRight;
+
+  // Update aria-disabled attribute for accessibility
+  leftBtn.setAttribute('aria-disabled', !canScrollLeft);
+  rightBtn.setAttribute('aria-disabled', !canScrollRight);
+
+  // Update visual styles for disabled state
+  leftBtn.classList.toggle('disabled', !canScrollLeft);
+  rightBtn.classList.toggle('disabled', !canScrollRight);
+}
+
+/**
  * Scroll carousel left or right
  * @param {string} direction - 'left' or 'right'
  */
@@ -145,6 +171,9 @@ function scrollCarousel(direction) {
     left: targetScroll,
     behavior: 'smooth'
   });
+
+  // Update button state after scroll
+  setTimeout(updateArrowButtonState, 50);
 }
 
 /**
@@ -166,12 +195,23 @@ function attachKeyboardNavigation() {
 function attachArrowButtonHandlers() {
   document.querySelectorAll('.carousel-arrow').forEach(btn => {
     btn.addEventListener('click', () => {
+      if (btn.disabled) return;
       const direction = btn.dataset.direction;
       if (direction === 'left' || direction === 'right') {
         scrollCarousel(direction);
       }
     });
   });
+}
+
+/**
+ * Attach scroll event listener to update arrow button states
+ */
+function attachScrollListener() {
+  const container = document.getElementById(DOM.booksContainer);
+  if (!container) return;
+
+  container.addEventListener('scroll', updateArrowButtonState);
 }
 
 /**
@@ -197,6 +237,8 @@ export function renderBooks(lang) {
   attachBookActionHandlers();
   attachKeyboardNavigation();
   attachArrowButtonHandlers();
+  attachScrollListener();
+  updateArrowButtonState();
 }
 
 /**

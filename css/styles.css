@@ -271,14 +271,20 @@ hr {
     z-index: 10;        /* FIX: Pop them above layout overflow boundaries */
 }
 
-.carousel-arrow:hover {
+.carousel-arrow:hover:not(.disabled) {
     background-color: #333;
     color: white;
     transform: scale(1.1);
 }
 
-.carousel-arrow:active {
+.carousel-arrow:active:not(.disabled) {
     transform: scale(0.95);
+}
+
+.carousel-arrow.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: #ccc;
 }
 
 .books-container {
