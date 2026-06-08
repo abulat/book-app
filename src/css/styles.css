@@ -347,15 +347,11 @@ hr {
 
 .show-more-btn {
     background: transparent;
-    border: none;
     color: #333;
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 1.4rem;
     font-weight: bold;
-    padding: 0.5rem 0;
-    margin: 0.5rem 0;
     text-decoration: underline;
-    transition: color 0.2s ease;
     display: block;
 }
 
