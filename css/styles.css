@@ -254,9 +254,9 @@ hr {
     gap: 2rem;
     position: relative;
     width: 110%;       /* Force wrapper to match container bounds */
-    max-width: 110%;   /* Prevent it from expanding wider than viewport */
+    max-width: 105%;   /* Prevent it from expanding wider than viewport */
     overflow: hidden;  /* Clean up stray layouts */
-    margin: 0 80px 3rem -80px;
+    margin: 0 30px 3rem -30px;
 }
 
 .carousel-arrow {
