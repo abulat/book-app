@@ -157,6 +157,7 @@ hr {
 /* Buttons */
 .cta-button {
     display: inline-block;
+    width: 100%;
     padding: 1rem 2rem;
     background-color: #333;
     color: white;
@@ -279,7 +280,7 @@ hr {
 .carousel-arrow:hover:not(.disabled) {
     background-color: #333;
     color: #f9f9f9;
-    transform: scale(1.1);
+    transform: scale(0.95);
 }
 
 .carousel-arrow:active:not(.disabled) {
@@ -346,15 +347,11 @@ hr {
 
 .show-more-btn {
     background: transparent;
-    border: none;
     color: #333;
     cursor: pointer;
-    font-size: 0.95rem;
+    font-size: 1.4rem;
     font-weight: bold;
-    padding: 0.5rem 0;
-    margin: 0.5rem 0;
     text-decoration: underline;
-    transition: color 0.2s ease;
     display: block;
 }
 
@@ -393,7 +390,7 @@ hr {
 }
 
 .cover-placeholder:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
 
 .cover-placeholder:hover ~ .cover-popup-overlay {
@@ -406,7 +403,7 @@ hr {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 290px;
+    width: 480px;
     height: auto;
     aspect-ratio: 2/3;
     background: white;

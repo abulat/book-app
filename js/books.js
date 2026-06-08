@@ -71,17 +71,15 @@ function buildBookHTML(book, lang) {
   const showLessText = getTranslation('books.showLess', lang);
   
   // Build description HTML with show more/less toggle
-  let descriptionHTML = `<p class="book-description ${isTruncated ? 'truncated' : ''}" data-full-text="${description.replace(/"/g, '&quot;')}" data-truncated-text="${truncated.replace(/"/g, '&quot;')}">${truncated}</p>`;
-  
+  let descriptionHTML = `<p class="book-description ${isTruncated ? 'truncated' : ''}" data-full-text="${description.replace(/"/g, '&quot;')}&nbsp;" data-truncated-text="${truncated.replace(/"/g, '&quot;')}&nbsp;">${truncated}&nbsp;`;
+    
   if (isTruncated) {
-    descriptionHTML += `
-      <button class="show-more-btn" data-expanded="false">
-        <span class="show-more-text">${showMoreText}</span>
-        <span class="show-less-text" style="display: none;">${showLessText}</span>
-      </button>
-    `;
+    // Stripped out all line breaks inside this string so it doesn't push down
+    descriptionHTML += `<a class="show-more-btn" data-expanded="false" style="display: inline-flex; gap: 4px; cursor: pointer;"><span class="show-more-text">${showMoreText}</span><span class="show-less-text" style="display: none;">${showLessText}</span></a>`;
   }
-  
+
+  descriptionHTML += `</p>`;
+
   return `
     <div class="book-cover">
       <div class="cover-wrapper">
@@ -136,36 +134,49 @@ function attachShowMoreHandlers() {
   document.querySelectorAll('.show-more-btn').forEach(btn => {
     btn.addEventListener('click', event => {
       event.preventDefault();
-      const descriptionEl = btn.previousElementSibling;
+      
+      const descriptionEl = btn.parentElement; // This is the <p> tag
+      const contentSpan = descriptionEl.querySelector('.description-content'); 
+      
       const isExpanded = btn.dataset.expanded === 'true';
       const showMoreText = btn.querySelector('.show-more-text');
       const showLessText = btn.querySelector('.show-less-text');
       
       if (isExpanded) {
-        // Collapse - restore exact truncated text from data attribute
-        window.debugCollapse = {
-          truncatedBefore: descriptionEl.getAttribute('data-truncated-text'),
-          displayedBefore: descriptionEl.textContent
-        };
-        
+        // Collapse
         const truncatedText = descriptionEl.getAttribute('data-truncated-text');
-        descriptionEl.textContent = truncatedText;
         
-        window.debugCollapse.displayedAfter = descriptionEl.textContent;
-        window.debugCollapse.matches = descriptionEl.textContent === truncatedText;
+        if (contentSpan) {
+          contentSpan.innerHTML = truncatedText;
+        } else {
+          // Fallback just in case the span wasn't found
+          descriptionEl.textContent = truncatedText; 
+        }
         
         descriptionEl.classList.add('truncated');
         showMoreText.style.display = 'inline';
         showLessText.style.display = 'none';
         btn.dataset.expanded = 'false';
+        
+        if (!contentSpan) descriptionEl.appendChild(btn);
+
       } else {
         // Expand
         const fullText = descriptionEl.getAttribute('data-full-text');
-        descriptionEl.textContent = fullText;
+        
+        if (contentSpan) {
+          contentSpan.innerHTML = fullText;
+        } else {
+          // Fallback just in case
+          descriptionEl.textContent = fullText;
+        }
+        
         descriptionEl.classList.remove('truncated');
         showMoreText.style.display = 'none';
         showLessText.style.display = 'inline';
         btn.dataset.expanded = 'true';
+        
+        if (!contentSpan) descriptionEl.appendChild(btn);
       }
     });
   });
