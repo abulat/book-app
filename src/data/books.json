@@ -53,6 +53,56 @@
     {
       "id": "book2",
       "title": {
+        "en": "Free bird",
+        "by": "Вольная птушка"
+      },
+      "description": {
+        "en": "After the 2020 protests in Belarus, Antos’s life breaks down completely and irreversibly. What once was ordinary disappears, leaving him alone in motion through a shattered world. The protests turn into escape, escape turns into wars, and every new country becomes yet another ordeal. And yet, through all this chaos, he carries one thing — the memory of his mother and the hope of returning to her.",
+        "by": "Пасля пратэстаў 2020 года ў Беларусі жыццё Антося ламаецца канчаткова і беззваротна. Тое, што было звычайнасцю, знікае, пакідаючы яго сам-насам з рухам праз разбураны свет. Пратэсты пераходзяць у ўцёкі, уцёкі — у войны, а кожная новая краіна становіцца чарговым выпрабаваннем. І ўсё ж праз гэты хаос ён нясе адно — памяць пра маці і надзею вярнуцца да яе."
+      },
+      "genre": {
+        "title": {
+          "en": "Genre",
+          "by": "Жанр"
+        },
+        "value": {
+          "en": "Contemporary Fiction, Political Fiction",
+          "by": "Апавяданне, мастацкая проза, сацыяльна-палітычная драма"
+        }
+      },
+      "pages": {
+        "title": {
+          "en": "Pages",
+          "by": "Старонкі"
+        },
+        "value": {
+          "en": "~90",
+          "by": "~90"
+        }
+      },
+      "release": {
+        "title": {
+          "en": "Release Date",
+          "by": "Дата Выдання"
+        },
+        "value": {
+          "en": "April 2024",
+          "by": "Красавік 2024"
+        }
+      },
+      "cta": {
+        "en": "E-Book (Contact the Author)",
+        "by": "Электронная кніга (Звязацца з аўтарам)"
+      },
+      "cover": {
+        "en": "images/вокладка-2.png",
+        "by": "images/вокладка-2.png"
+      },
+      "amazonUrl": ""
+    },
+    {
+      "id": "book3",
+      "title": {
         "en": "Through Time Toward Destiny (Belaruaian language only)",
         "by": "Праз час насустрач лёсу"
       },

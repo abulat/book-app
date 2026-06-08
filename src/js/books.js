@@ -3,6 +3,7 @@
 // ============================================================================
 
 import { getState } from './state.js';
+import { getTranslation } from './translations.js';
 
 const DOM = {
   booksContainer: 'books-container',
@@ -10,6 +11,28 @@ const DOM = {
   bookActionBtn: '.book-action-btn',
   booksScrollWrapper: 'books-scroll-wrapper'
 };
+
+/**
+ * Truncate text to specified length without cutting words
+ * @param {string} text - Text to truncate
+ * @param {number} maxLength - Maximum length
+ * @returns {object} Object with full text and truncated text
+ */
+function truncateText(text, maxLength = 200) {
+  if (!text || text.length <= maxLength) {
+    return { full: text, truncated: text, isTruncated: false };
+  }
+
+  // Find the last space within maxLength characters
+  let truncated = text.substring(0, maxLength);
+  const lastSpaceIndex = truncated.lastIndexOf(' ');
+  
+  if (lastSpaceIndex > 0) {
+    truncated = truncated.substring(0, lastSpaceIndex);
+  }
+
+  return { full: text, truncated: truncated + '...', isTruncated: true };
+}
 
 /**
  * Get a localized value from a nested object with language fallback
@@ -39,6 +62,26 @@ function buildBookHTML(book, lang) {
     .map(tag => `<span class="genre-tag">${tag.trim()}</span>`)
     .join('');
   
+  // Truncate description
+  const description = get(book.description);
+  const { truncated, isTruncated } = truncateText(description);
+  
+  // Get translations for buttons
+  const showMoreText = getTranslation('books.showMore', lang);
+  const showLessText = getTranslation('books.showLess', lang);
+  
+  // Build description HTML with show more/less toggle
+  let descriptionHTML = `<p class="book-description ${isTruncated ? 'truncated' : ''}" data-full-text="${description.replace(/"/g, '&quot;')}" data-truncated-text="${truncated.replace(/"/g, '&quot;')}">${truncated}</p>`;
+  
+  if (isTruncated) {
+    descriptionHTML += `
+      <button class="show-more-btn" data-expanded="false">
+        <span class="show-more-text">${showMoreText}</span>
+        <span class="show-less-text" style="display: none;">${showLessText}</span>
+      </button>
+    `;
+  }
+  
   return `
     <div class="book-cover">
       <div class="cover-wrapper">
@@ -66,7 +109,7 @@ function buildBookHTML(book, lang) {
     </div>
     <div class="book-details">
       <h3 class="book-title">${get(book.title) || 'Book Title'}</h3>
-      <p class="book-description">${get(book.description)}</p>
+      ${descriptionHTML}
       <a href="${lang === 'en' && book.amazonUrl ? book.amazonUrl : '#contact'}" class="cta-button book-action-btn">${get(book.cta) || 'Get Your Copy'}</a>
     </div>
   `;
@@ -87,9 +130,48 @@ function createBookElement(book, lang) {
 }
 
 /**
- * Open external link in new window
- * @param {HTMLElement} btn - Button element
+ * Attach click handlers to "show more/less" buttons
  */
+function attachShowMoreHandlers() {
+  document.querySelectorAll('.show-more-btn').forEach(btn => {
+    btn.addEventListener('click', event => {
+      event.preventDefault();
+      const descriptionEl = btn.previousElementSibling;
+      const isExpanded = btn.dataset.expanded === 'true';
+      const showMoreText = btn.querySelector('.show-more-text');
+      const showLessText = btn.querySelector('.show-less-text');
+      
+      if (isExpanded) {
+        // Collapse - restore exact truncated text from data attribute
+        window.debugCollapse = {
+          truncatedBefore: descriptionEl.getAttribute('data-truncated-text'),
+          displayedBefore: descriptionEl.textContent
+        };
+        
+        const truncatedText = descriptionEl.getAttribute('data-truncated-text');
+        descriptionEl.textContent = truncatedText;
+        
+        window.debugCollapse.displayedAfter = descriptionEl.textContent;
+        window.debugCollapse.matches = descriptionEl.textContent === truncatedText;
+        
+        descriptionEl.classList.add('truncated');
+        showMoreText.style.display = 'inline';
+        showLessText.style.display = 'none';
+        btn.dataset.expanded = 'false';
+      } else {
+        // Expand
+        const fullText = descriptionEl.getAttribute('data-full-text');
+        descriptionEl.textContent = fullText;
+        descriptionEl.classList.remove('truncated');
+        showMoreText.style.display = 'none';
+        showLessText.style.display = 'inline';
+        btn.dataset.expanded = 'true';
+      }
+    });
+  });
+}
+
+/**
 function handleExternalLink(btn) {
   const href = btn.getAttribute('href');
   if (href.startsWith('http')) {
@@ -235,6 +317,7 @@ export function renderBooks(lang) {
   });
 
   attachBookActionHandlers();
+  attachShowMoreHandlers();
   attachKeyboardNavigation();
   attachArrowButtonHandlers();
   attachScrollListener();

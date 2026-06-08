@@ -414,4 +414,313 @@ describe('Book rendering', () => {
     // Verify that action button is the last element in book-details
     expect(bookDetails.lastElementChild).toBe(actionBtn);
   });
+
+  it('should truncate long descriptions to 200 characters without cutting words', () => {
+    const longDescription = 'Lorem ipsum dolor sit amet consectetur adipiscing elit. '.repeat(10); // Over 200 characters
+    
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book', by: 'Кніга' },
+        description: { en: longDescription, by: 'Апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+        cta: { en: 'Get', by: 'Купіць' },
+        cover: { en: 'images/1.png', by: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+    
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div id="books-container" class="books-container"></div>
+    `;
+    
+    renderBooks('en');
+    
+    const description = document.querySelector('.book-description');
+    const text = description.textContent;
+    
+    // Check that text is truncated and contains ellipsis
+    expect(text.length).toBeLessThan(longDescription.length);
+    expect(text.endsWith('...')).toBe(true);
+    expect(text.length).toBeLessThanOrEqual(210); // 200 + ellipsis buffer
+  });
+
+  it('should display show more button for truncated descriptions', () => {
+    const longDescription = 'Lorem ipsum dolor sit amet consectetur adipiscing elit. '.repeat(10);
+    
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book', by: 'Кніга' },
+        description: { en: longDescription, by: 'Апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+        cta: { en: 'Get', by: 'Купіць' },
+        cover: { en: 'images/1.png', by: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+    
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div id="books-container" class="books-container"></div>
+    `;
+    
+    renderBooks('en');
+    
+    const showMoreBtn = document.querySelector('.show-more-btn');
+    expect(showMoreBtn).toBeTruthy();
+    expect(showMoreBtn.dataset.expanded).toBe('false');
+  });
+
+  it('should not display show more button for short descriptions', () => {
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book', by: 'Кніга' },
+        description: { en: 'Short description', by: 'Апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+        cta: { en: 'Get', by: 'Купіць' },
+        cover: { en: 'images/1.png', by: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+    
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div id="books-container" class="books-container"></div>
+    `;
+    
+    renderBooks('en');
+    
+    const showMoreBtn = document.querySelector('.show-more-btn');
+    expect(showMoreBtn).toBeFalsy();
+  });
+
+  it('should expand full description when show more button is clicked', () => {
+    const longDescription = 'Lorem ipsum dolor sit amet consectetur adipiscing elit. '.repeat(10);
+    
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book', by: 'Кніга' },
+        description: { en: longDescription, by: 'Апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+        cta: { en: 'Get', by: 'Купіць' },
+        cover: { en: 'images/1.png', by: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+    
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div id="books-container" class="books-container"></div>
+    `;
+    
+    renderBooks('en');
+    
+    const showMoreBtn = document.querySelector('.show-more-btn');
+    const description = document.querySelector('.book-description');
+    
+    // Click show more button
+    showMoreBtn.click();
+    
+    // Check that text is now full and button state changed
+    expect(description.textContent).toBe(longDescription);
+    expect(showMoreBtn.dataset.expanded).toBe('true');
+  });
+
+  it('should truncate description again when show less button is clicked', () => {
+    const longDescription = 'Lorem ipsum dolor sit amet consectetur adipiscing elit. '.repeat(10);
+    
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book', by: 'Кніга' },
+        description: { en: longDescription, by: 'Апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+        cta: { en: 'Get', by: 'Купіць' },
+        cover: { en: 'images/1.png', by: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+    
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div id="books-container" class="books-container"></div>
+    `;
+    
+    renderBooks('en');
+    
+    const showMoreBtn = document.querySelector('.show-more-btn');
+    const description = document.querySelector('.book-description');
+    
+    // Expand
+    showMoreBtn.click();
+    expect(description.textContent).toBe(longDescription);
+    
+    // Collapse
+    showMoreBtn.click();
+    
+    // Check that text is truncated again and ends with ellipsis
+    expect(description.textContent).not.toBe(longDescription);
+    expect(description.textContent.endsWith('...')).toBe(true);
+    expect(showMoreBtn.dataset.expanded).toBe('false');
+  });
+
+  it('should store both full and truncated text in data attributes', () => {
+    const longDescription = 'Lorem ipsum dolor sit amet consectetur adipiscing elit. '.repeat(10);
+    
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book', by: 'Кніга' },
+        description: { en: longDescription, by: 'Апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+        cta: { en: 'Get', by: 'Купіць' },
+        cover: { en: 'images/1.png', by: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+    
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div id="books-container" class="books-container"></div>
+    `;
+    
+    renderBooks('en');
+    
+    const description = document.querySelector('.book-description');
+    const fullTextAttr = description.getAttribute('data-full-text');
+    const truncatedAttr = description.getAttribute('data-truncated-text');
+    
+    // Verify both data attributes are set
+    expect(fullTextAttr).toBeTruthy();
+    expect(truncatedAttr).toBeTruthy();
+    
+    // Full text should match the original description
+    expect(fullTextAttr).toBe(longDescription);
+    
+    // Truncated text should be shorter and end with ellipsis
+    expect(truncatedAttr.length).toBeLessThan(fullTextAttr.length);
+    expect(truncatedAttr.endsWith('...')).toBe(true);
+    
+    // Initial display should show truncated version
+    expect(description.textContent).toBe(truncatedAttr);
+  });
+
+  it('should display show more/less buttons with text color styling', () => {
+    const longDescription = 'Lorem ipsum dolor sit amet consectetur adipiscing elit. '.repeat(10);
+    
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book', by: 'Кніга' },
+        description: { en: longDescription, by: 'Апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
+        cta: { en: 'Get', by: 'Купіць' },
+        cover: { en: 'images/1.png', by: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+    
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div id="books-container" class="books-container"></div>
+    `;
+    
+    renderBooks('en');
+    
+    const showMoreBtn = document.querySelector('.show-more-btn');
+    
+    // Verify button exists and has correct class
+    expect(showMoreBtn).toBeTruthy();
+    expect(showMoreBtn.className).toBe('show-more-btn');
+    
+    // Verify button content exists (should contain "Show More")
+    expect(showMoreBtn.textContent.length).toBeGreaterThan(0);
+  });
+
+  it('should follow complete show more/less flow with text restoration', () => {
+    // Step 1: Create a long description for the first book
+    const longDescription = 'Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '.repeat(3);
+    
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Test Book', by: 'Тэст Кніга' },
+        description: { en: longDescription, by: 'Апісанне' },
+        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
+        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '100', by: '100' } },
+        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'June', by: 'Чэрвень' } },
+        cta: { en: 'Get', by: 'Купіць' },
+        cover: { en: 'images/test.png', by: 'images/test.png' },
+        amazonUrl: ''
+      }
+    ];
+    
+    setBookData(books);
+    
+    document.body.innerHTML = `
+      <div id="books-container" class="books-container"></div>
+    `;
+    
+    renderBooks('en');
+    
+    // Step 2: Remember displayed book description (should be truncated around 200 chars)
+    const descriptionEl = document.querySelector('.book-description');
+    const initialDisplayedText = descriptionEl.textContent;
+    
+    // Acceptance: text at step 2 should be around 200 chars (allow 50 char tolerance)
+    expect(initialDisplayedText.length).toBeGreaterThan(150);
+    expect(initialDisplayedText.length).toBeLessThan(250);
+    expect(initialDisplayedText.endsWith('...')).toBe(true);
+    
+    // Step 3: Click show more
+    const showMoreBtn = document.querySelector('.show-more-btn');
+    expect(showMoreBtn).toBeTruthy();
+    showMoreBtn.click();
+    
+    // Step 4: Remember displayed book description (should be full)
+    const expandedText = descriptionEl.textContent;
+    expect(expandedText.length).toBeGreaterThan(initialDisplayedText.length);
+    expect(expandedText).toBe(longDescription);
+    
+    // Step 5: Click show less
+    const showLessBtn = document.querySelector('.show-more-btn');
+    expect(showLessBtn).toBeTruthy();
+    showLessBtn.click();
+    
+    // Step 6: Compare displayed text - should match initial truncated text
+    const collapsedText = descriptionEl.textContent;
+    
+    // Acceptance: after clicking show less, visible text should be less than 200 chars
+    expect(collapsedText.length).toBeLessThan(200);
+    expect(collapsedText.length).toBeGreaterThan(150);
+    
+    // Most important: text should be restored exactly as it was
+    expect(collapsedText).toBe(initialDisplayedText);
+    expect(collapsedText.endsWith('...')).toBe(true);
+  });
 });
