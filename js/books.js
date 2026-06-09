@@ -36,7 +36,7 @@ function truncateText(text, maxLength = 200) {
 
 /**
  * Get a localized value from a nested object with language fallback
- * @param {object} obj - Object with language keys (en, by, etc.)
+ * @param {object} obj - Object with language keys (en, be, etc.)
  * @param {string} lang - Target language code
  * @returns {string|null} Localized value or null if not found
  */

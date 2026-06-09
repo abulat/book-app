@@ -12,7 +12,7 @@ const DOM = {
  * Detect default language based on saved preference or browser locale
  * @param {string} savedLang - Previously saved language preference
  * @param {string} userLang - Browser language/locale
- * @returns {string} Language code (en or by)
+ * @returns {string} Language code (en or be)
  */
 export function getDefaultLanguage(savedLang, userLang = '') {
   if (savedLang) {
@@ -20,7 +20,7 @@ export function getDefaultLanguage(savedLang, userLang = '') {
   }
 
   if (/^(ru|be)/.test((userLang || '').toLowerCase())) {
-    return 'by';
+    return 'be';
   }
 
   return 'en';
