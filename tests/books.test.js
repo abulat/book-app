@@ -695,6 +695,7 @@ describe('Book rendering', () => {
     // Acceptance: text at step 2 should be around 200 chars (allow 50 char tolerance)
     expect(initialDisplayedText.length).toBeGreaterThan(150);
     expect(initialDisplayedText.length).toBeLessThan(250);
+    console.log('Step 2: ', initialDisplayedText);  
     expect(initialDisplayedText.endsWith('...')).toBe(true);
     
     // Step 3: Click show more

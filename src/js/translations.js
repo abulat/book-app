@@ -19,7 +19,7 @@ export function getDefaultLanguage(savedLang, userLang = '') {
     return savedLang;
   }
 
-  if (/^(be)/.test((userLang || '').toLowerCase())) {
+  if (/^(ru|be)/.test((userLang || '').toLowerCase())) {
     return 'be';
   }
 
