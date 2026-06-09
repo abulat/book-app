@@ -13,7 +13,7 @@ describe('Language utilities', () => {
     document.body.innerHTML = `
       <div class="language-switcher">
         <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="by">BY</button>
+        <button class="lang-btn" data-lang="be">BE</button>
       </div>
       <h1 data-i18n="hero.subtitle">Writer & Storyteller</h1>
       <h2 data-i18n="books.title">Published Works</h2>
@@ -22,12 +22,12 @@ describe('Language utilities', () => {
   });
 
   it('should return saved language preference', () => {
-    expect(getDefaultLanguage('en', 'be-BY')).toBe('en');
+    expect(getDefaultLanguage('en', 'be-BE')).toBe('en');
   });
 
   it('should use Belarusian for ru/be locale when no saved preference exists', () => {
-    expect(getDefaultLanguage(null, 'ru-RU')).toBe('by');
-    expect(getDefaultLanguage(null, 'be-BY')).toBe('by');
+    expect(getDefaultLanguage(null, 'ru-RU')).toBe('be');
+    expect(getDefaultLanguage(null, 'be-BE')).toBe('be');
   });
 
   it('should default to English when no preference and non-CIS locale', () => {
@@ -38,24 +38,24 @@ describe('Language utilities', () => {
   it('should get translation for valid key and language', () => {
     const translations = {
       en: { 'test.key': 'Hello' },
-      by: { 'test.key': 'Привет' }
+      be: { 'test.key': 'Привет' }
     };
     setTranslationsData(translations);
     expect(getTranslation('test.key', 'en')).toBe('Hello');
-    expect(getTranslation('test.key', 'by')).toBe('Привет');
+    expect(getTranslation('test.key', 'be')).toBe('Привет');
   });
 
   it('should fallback to English when language not found', () => {
     const translations = {
       en: { 'test.key': 'Hello' },
-      by: {}
+      be: {}
     };
     setTranslationsData(translations);
-    expect(getTranslation('test.key', 'by')).toBe('Hello');
+    expect(getTranslation('test.key', 'be')).toBe('Hello');
   });
 
   it('should return empty string for missing key', () => {
-    const translations = { en: {}, by: {} };
+    const translations = { en: {}, be: {} };
     setTranslationsData(translations);
     expect(getTranslation('nonexistent.key', 'en')).toBe('');
   });
@@ -63,10 +63,10 @@ describe('Language utilities', () => {
   it('should apply translations to elements with data-i18n attributes', () => {
     const translations = {
       en: { 'hero.subtitle': 'Writer & Storyteller' },
-      by: { 'hero.subtitle': 'Пісьменнік і Апавядальнік' }
+      be: { 'hero.subtitle': 'Пісьменнік і Апавядальнік' }
     };
     setTranslationsData(translations);
-    applyTranslations('by');
+    applyTranslations('be');
     
     expect(document.querySelector('[data-i18n="hero.subtitle"]').textContent).toBe('Пісьменнік і Апавядальнік');
   });
@@ -74,7 +74,7 @@ describe('Language utilities', () => {
   it('should update document title', () => {
     const translations = {
       en: { 'site.title': 'Test Site EN' },
-      by: { 'site.title': 'Тест BY' }
+      be: { 'site.title': 'Тест BE' }
     };
     setTranslationsData(translations);
     applyTranslations('en');
@@ -82,8 +82,8 @@ describe('Language utilities', () => {
   });
 
   it('should return current language from localStorage', () => {
-    localStorage.setItem('preferredLanguage', 'by');
-    expect(getCurrentLang()).toBe('by');
+    localStorage.setItem('preferredLanguage', 'be');
+    expect(getCurrentLang()).toBe('be');
   });
 
   it('should return English as default current language', () => {
@@ -94,7 +94,7 @@ describe('Language utilities', () => {
   it('should get keyed translations for language', () => {
     const translations = {
       en: { 'nav.home': 'Home', 'nav.about': 'About' },
-      by: { 'nav.home': 'Галоўная', 'nav.about': 'Пра' }
+      be: { 'nav.home': 'Галоўная', 'nav.about': 'Пра' }
     };
     setTranslationsData(translations);
     

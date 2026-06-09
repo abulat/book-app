@@ -17,7 +17,7 @@ const DOM = {
 
 /**
  * Change application language and update all content
- * @param {string} lang - Language code (en, by)
+ * @param {string} lang - Language code (en, be)
  */
 export function setLanguage(lang) {
   const state = getState();

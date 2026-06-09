@@ -16,8 +16,8 @@ describe('Author rendering', () => {
 
   it('should render author name in navbar', () => {
     const authorData = {
-      name: { en: 'Ales Begood', by: 'Алесь Бігуд' },
-      bio: { en: 'English bio', by: 'Беларускае баіа' }
+      name: { en: 'Ales Begood', be: 'Алесь Бігуд' },
+      bio: { en: 'English bio', be: 'Беларускае баіа' }
     };
     setAuthorData(authorData);
     renderAuthor('en');
@@ -27,8 +27,8 @@ describe('Author rendering', () => {
 
   it('should render author name in hero section', () => {
     const authorData = {
-      name: { en: 'Ales Begood', by: 'Алесь Бігуд' },
-      bio: { en: 'English bio', by: 'Беларускае баіа' }
+      name: { en: 'Ales Begood', be: 'Алесь Бігуд' },
+      bio: { en: 'English bio', be: 'Беларускае баіа' }
     };
     setAuthorData(authorData);
     renderAuthor('en');
@@ -38,8 +38,8 @@ describe('Author rendering', () => {
 
   it('should render author bio', () => {
     const authorData = {
-      name: { en: 'Ales Begood', by: 'Алесь Бігуд' },
-      bio: { en: 'English bio', by: 'Беларускае баіа' }
+      name: { en: 'Ales Begood', be: 'Алесь Бігуд' },
+      bio: { en: 'English bio', be: 'Беларускае баіа' }
     };
     setAuthorData(authorData);
     renderAuthor('en');
@@ -49,11 +49,11 @@ describe('Author rendering', () => {
 
   it('should render author data in Belarusian', () => {
     const authorData = {
-      name: { en: 'Ales Begood', by: 'Алесь Бігуд' },
-      bio: { en: 'English bio', by: 'Беларускае баіа' }
+      name: { en: 'Ales Begood', be: 'Алесь Бігуд' },
+      bio: { en: 'English bio', be: 'Беларускае баіа' }
     };
     setAuthorData(authorData);
-    renderAuthor('by');
+    renderAuthor('be');
     
     expect(document.getElementById('site-author-name').textContent).toBe('Алесь Бігуд');
     expect(document.getElementById('author-name').textContent).toBe('Алесь Бігуд');
@@ -62,7 +62,7 @@ describe('Author rendering', () => {
 
   it('should get author data', () => {
     const authorData = {
-      name: { en: 'Ales Begood', by: 'Алесь Бігуд' }
+      name: { en: 'Ales Begood', be: 'Алесь Бігуд' }
     };
     setAuthorData(authorData);
     expect(getAuthorData()).toEqual(authorData);

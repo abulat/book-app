@@ -4,49 +4,49 @@
       "id": "book1",
       "title": {
         "en": "And the Angels Wept",
-        "by": "І плакалі анёлы"
+        "be": "І плакалі анёлы"
       },
       "description": {
         "en": "And the Angels Wept is a debut collection of short stories, originally written in Belarusian and Russian, and translated into English. The book carries the honest and painful voice of a people who have endured protests, torture, and repression, but held on to hope. At the center are ordinary people facing moments of truth, fear, and faith — described with sincerity and humanity, without pathos but with a sense of respect.",
-        "by": "«І плакалі анёлы» — гэта дэбютны зборнік апавяданняў, напісаны на беларускай і рускай мовах. У кнізе гучыць шчыры і балючы голас народа, які перажыў пратэсты, катаванні і рэпрэсіі, але не згубіў надзеі. Аўтар паказвае людзей у іх самых праўдзівых і ўразлівых момантах — без прыкрас і штучнага героізму, але з глыбокай павагай да іх годнасці."
+        "be": "«І плакалі анёлы» — гэта дэбютны зборнік апавяданняў, напісаны на беларускай і рускай мовах. У кнізе гучыць шчыры і балючы голас народа, які перажыў пратэсты, катаванні і рэпрэсіі, але не згубіў надзеі. Аўтар паказвае людзей у іх самых праўдзівых і ўразлівых момантах — без прыкрас і штучнага героізму, але з глыбокай павагай да іх годнасці."
       },
       "genre": {
         "title": {
           "en": "Genre",
-          "by": "Жанр"
+          "be": "Жанр"
         },
         "value": {
           "en": "Contemporary Fiction, Political Fiction, Short Stories, Psychological Drama, Social Commentary",
-          "by": "Мастацкая проза, сацыяльна-палітычная драма, псіхалагічнае апавяданне, дакументальная проза"
+          "be": "Мастацкая проза, сацыяльна-палітычная драма, псіхалагічнае апавяданне, дакументальная проза"
         }
       },
       "pages": {
         "title": {
           "en": "Pages",
-          "by": "Старонкі"
+          "be": "Старонкі"
         },
         "value": {
           "en": "~140",
-          "by": "~140"
+          "be": "~140"
         }
       },
       "release": {
         "title": {
           "en": "Release Date",
-          "by": "Дата Выдання"
+          "be": "Дата Выдання"
         },
         "value": {
           "en": "April, 2025",
-          "by": "Красавік 2025"
+          "be": "Красавік 2025"
         }
       },
       "cta": {
         "en": "Get your paperback or e-book copy via Amazon",
-        "by": "Купіць Кнігу (Звязацца з аўтарам)"
+        "be": "Купіць Кнігу (Звязацца з аўтарам)"
       },
       "cover": {
         "en": "images/I-Plakaly-anioly-Cover-EN.png",
-        "by": "images/I-Plakaly-anioly-Cover-BY.png"
+        "be": "images/I-Plakaly-anioly-Cover-BY.png"
       },
       "amazonUrl": "https://www.amazon.nl/-/en/Ales-Begood-ebook/dp/B0F55M8MLS/"
     },
@@ -54,49 +54,49 @@
       "id": "book2",
       "title": {
         "en": "Free bird",
-        "by": "Вольная птушка"
+        "be": "Вольная птушка"
       },
       "description": {
         "en": "After the 2020 protests in Belarus, Antos’s life breaks down completely and irreversibly. What once was ordinary disappears, leaving him alone in motion through a shattered world. The protests turn into escape, escape turns into wars, and every new country becomes yet another ordeal. And yet, through all this chaos, he carries one thing — the memory of his mother and the hope of returning to her.",
-        "by": "Пасля пратэстаў 2020 года ў Беларусі жыццё Антося ламаецца канчаткова і беззваротна. Тое, што было звычайнасцю, знікае, пакідаючы яго сам-насам з рухам праз разбураны свет. Пратэсты пераходзяць у ўцёкі, уцёкі — у войны, а кожная новая краіна становіцца чарговым выпрабаваннем. І ўсё ж праз гэты хаос ён нясе адно — памяць пра маці і надзею вярнуцца да яе."
+        "be": "Пасля пратэстаў 2020 года ў Беларусі жыццё Антося ламаецца канчаткова і беззваротна. Тое, што было звычайнасцю, знікае, пакідаючы яго сам-насам з рухам праз разбураны свет. Пратэсты пераходзяць у ўцёкі, уцёкі — у войны, а кожная новая краіна становіцца чарговым выпрабаваннем. І ўсё ж праз гэты хаос ён нясе адно — памяць пра маці і надзею вярнуцца да яе."
       },
       "genre": {
         "title": {
           "en": "Genre",
-          "by": "Жанр"
+          "be": "Жанр"
         },
         "value": {
           "en": "Contemporary Fiction, Political Fiction",
-          "by": "Апавяданне, мастацкая проза, сацыяльна-палітычная драма"
+          "be": "Апавяданне, мастацкая проза, сацыяльна-палітычная драма"
         }
       },
       "pages": {
         "title": {
           "en": "Pages",
-          "by": "Старонкі"
+          "be": "Старонкі"
         },
         "value": {
           "en": "~90",
-          "by": "~90"
+          "be": "~90"
         }
       },
       "release": {
         "title": {
           "en": "Release Date",
-          "by": "Дата Выдання"
+          "be": "Дата Выдання"
         },
         "value": {
           "en": "April 2024",
-          "by": "Красавік 2024"
+          "be": "Красавік 2024"
         }
       },
       "cta": {
         "en": "E-Book (Contact the Author)",
-        "by": "Электронная кніга (Звязацца з аўтарам)"
+        "be": "Электронная кніга (Звязацца з аўтарам)"
       },
       "cover": {
         "en": "images/вокладка-4.png",
-        "by": "images/вокладка-4.png"
+        "be": "images/вокладка-4.png"
       },
       "amazonUrl": ""
     },
@@ -104,49 +104,49 @@
       "id": "book3",
       "title": {
         "en": "Through Time Toward Destiny (Belaruaian language only)",
-        "by": "Праз час насустрач лёсу"
+        "be": "Праз час насустрач лёсу"
       },
       "description": {
         "en": "Through Time Toward Destiny is a novel about how an innocent childhood game changed the life of a Soviet boy, and how an unexpected encounter turned into the love of his life.",
-        "by": "«Праз час насустрач лёсу» — гэта кніга пра тое, як бяскрыўдная дзіцячая гульня змяніла жыццё савецкага хлопчыка, і пра тое, як нечаканая сустрэча ператварылася ў каханне ўсяго яго жыцця."
+        "be": "«Праз час насустрач лёсу» — гэта кніга пра тое, як бяскрыўдная дзіцячая гульня змяніла жыццё савецкага хлопчыка, і пра тое, як нечаканая сустрэча ператварылася ў каханне ўсяго яго жыцця."
       },
       "genre": {
         "title": {
           "en": "Genre",
-          "by": "Жанр"
+          "be": "Жанр"
         },
         "value": {
           "en": "Historical fantasy novel",
-          "by": "Гістарычна-фантастычны раман"
+          "be": "Гістарычна-фантастычны раман"
         }
       },
       "pages": {
         "title": {
           "en": "Pages",
-          "by": "Старонкі"
+          "be": "Старонкі"
         },
         "value": {
           "en": "~150",
-          "by": "~150"
+          "be": "~150"
         }
       },
       "release": {
         "title": {
           "en": "Release Date",
-          "by": "Дата Выдання"
+          "be": "Дата Выдання"
         },
         "value": {
           "en": "May 2026",
-          "by": "Травень 2026"
+          "be": "Травень 2026"
         }
       },
       "cta": {
         "en": "E-Book (Contact the Author)",
-        "by": "Электронная кніга (Звязацца з аўтарам)"
+        "be": "Электронная кніга (Звязацца з аўтарам)"
       },
       "cover": {
         "en": "images/Скрозь час насустрач лёсу.jpg",
-        "by": "images/Скрозь час насустрач лёсу.jpg"
+        "be": "images/Скрозь час насустрач лёсу.jpg"
       },
       "amazonUrl": ""
     }

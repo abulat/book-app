@@ -39,7 +39,7 @@ describe('Language switching orchestration', () => {
     document.body.innerHTML = `
       <div class="language-switcher">
         <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="by">BY</button>
+        <button class="lang-btn" data-lang="be">BE</button>
       </div>
       <h1 data-i18n="hero.subtitle">Writer & Storyteller</h1>
       <h1 id="author-name">Author Name</h1>
@@ -50,48 +50,48 @@ describe('Language switching orchestration', () => {
   });
 
   it('should set active language button class', () => {
-    const translations = { en: {}, by: {} };
+    const translations = { en: {}, be: {} };
     setTranslationsData(translations);
-    setLanguage('by');
+    setLanguage('be');
     
     const activeButton = document.querySelector('.lang-btn.active');
     expect(activeButton).not.toBeNull();
-    expect(activeButton.dataset.lang).toBe('by');
+    expect(activeButton.dataset.lang).toBe('be');
   });
 
   it('should set document language attribute', () => {
-    const translations = { en: {}, by: {} };
+    const translations = { en: {}, be: {} };
     setTranslationsData(translations);
-    setLanguage('by');
-    expect(document.documentElement.lang).toBe('by');
+    setLanguage('be');
+    expect(document.documentElement.lang).toBe('be');
   });
 
   it('should save language to localStorage', () => {
-    const translations = { en: {}, by: {} };
+    const translations = { en: {}, be: {} };
     setTranslationsData(translations);
-    setLanguage('by');
-    expect(localStorage.getItem('preferredLanguage')).toBe('by');
+    setLanguage('be');
+    expect(localStorage.getItem('preferredLanguage')).toBe('be');
   });
 
   it('should switch all content when language changes', () => {
     const translations = {
       en: { 'hero.subtitle': 'Writer EN' },
-      by: { 'hero.subtitle': 'Пісьменнік BY' }
+      be: { 'hero.subtitle': 'Пісьменнік BE' }
     };
     const authorData = {
-      name: { en: 'Ales', by: 'Алесь' },
-      bio: { en: 'Bio EN', by: 'Баіа BY' }
+      name: { en: 'Ales', be: 'Алесь' },
+      bio: { en: 'Bio EN', be: 'Баіа BE' }
     };
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book EN', by: 'Кніга BY' },
-        description: { en: 'Desc EN', by: 'Апісанне BY' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/en.png', by: 'images/by.png' },
+        title: { en: 'Book EN', be: 'Кніга BE' },
+        description: { en: 'Desc EN', be: 'Апісанне BE' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/en.png', be: 'images/be.png' },
         amazonUrl: ''
       }
     ];
@@ -105,9 +105,9 @@ describe('Language switching orchestration', () => {
     expect(document.getElementById('author-name').textContent).toBe('Ales');
     expect(document.querySelector('.book-title').textContent).toBe('Book EN');
 
-    setLanguage('by');
-    expect(document.querySelector('[data-i18n="hero.subtitle"]').textContent).toBe('Пісьменнік BY');
+    setLanguage('be');
+    expect(document.querySelector('[data-i18n="hero.subtitle"]').textContent).toBe('Пісьменнік BE');
     expect(document.getElementById('author-name').textContent).toBe('Алесь');
-    expect(document.querySelector('.book-title').textContent).toBe('Кніга BY');
+    expect(document.querySelector('.book-title').textContent).toBe('Кніга BE');
   });
 });

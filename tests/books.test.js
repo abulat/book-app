@@ -11,7 +11,7 @@ describe('Book rendering', () => {
       <div id="books-container"></div>
       <div class="language-switcher">
         <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="by">BY</button>
+        <button class="lang-btn" data-lang="be">BE</button>
       </div>
     `;
   });
@@ -20,13 +20,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'And the Angels Wept', by: 'І плакалі анёлы' },
-        description: { en: 'English description', by: 'Беларускае апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release Date', by: 'Дата Выдання' }, value: { en: 'April, 2025', by: 'Красавік 2025' } },
-        cta: { en: 'Get Your Copy', by: 'Купіць Кнігу' },
-        cover: { en: 'images/en-cover.png', by: 'images/by-cover.png' },
+        title: { en: 'And the Angels Wept', be: 'І плакалі анёлы' },
+        description: { en: 'English description', be: 'Беларускае апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release Date', be: 'Дата Выдання' }, value: { en: 'April, 2025', be: 'Красавік 2025' } },
+        cta: { en: 'Get Your Copy', be: 'Купіць Кнігу' },
+        cover: { en: 'images/en-cover.png', be: 'images/be-cover.png' },
         amazonUrl: 'https://amazon.example.com'
       }
     ];
@@ -42,24 +42,24 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book One', by: 'Кніга Адна' },
-        description: { en: 'First book', by: 'Першая кніга' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release Date', by: 'Дата Выдання' }, value: { en: 'April, 2025', by: 'Красавік 2025' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book One', be: 'Кніга Адна' },
+        description: { en: 'First book', be: 'Першая кніга' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release Date', be: 'Дата Выдання' }, value: { en: 'April, 2025', be: 'Красавік 2025' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: 'https://amazon.example.com'
       },
       {
         id: 'book2',
-        title: { en: 'Book Two', by: 'Кніга Два' },
-        description: { en: 'Second book', by: 'Другая кніга' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '150', by: '150' } },
-        release: { title: { en: 'Release Date', by: 'Дата Выдання' }, value: { en: 'Soon', by: 'Скора' } },
-        cta: { en: 'Coming', by: 'Прыходзіць' },
-        cover: { en: 'images/2.png', by: 'images/2.png' },
+        title: { en: 'Book Two', be: 'Кніга Два' },
+        description: { en: 'Second book', be: 'Другая кніга' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '150', be: '150' } },
+        release: { title: { en: 'Release Date', be: 'Дата Выдання' }, value: { en: 'Soon', be: 'Скора' } },
+        cta: { en: 'Coming', be: 'Прыходзіць' },
+        cover: { en: 'images/2.png', be: 'images/2.png' },
         amazonUrl: ''
       }
     ];
@@ -76,18 +76,18 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'And the Angels Wept', by: 'І плакалі анёлы' },
-        description: { en: 'English description', by: 'Беларускае апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release Date', by: 'Дата Выдання' }, value: { en: 'April, 2025', by: 'Красавік 2025' } },
-        cta: { en: 'Get Your Copy', by: 'Купіць Кнігу' },
-        cover: { en: 'images/en-cover.png', by: 'images/by-cover.png' },
+        title: { en: 'And the Angels Wept', be: 'І плакалі анёлы' },
+        description: { en: 'English description', be: 'Беларускае апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release Date', be: 'Дата Выдання' }, value: { en: 'April, 2025', be: 'Красавік 2025' } },
+        cta: { en: 'Get Your Copy', be: 'Купіць Кнігу' },
+        cover: { en: 'images/en-cover.png', be: 'images/be-cover.png' },
         amazonUrl: 'https://amazon.example.com'
       }
     ];
     setBookData(books);
-    renderBooks('by');
+    renderBooks('be');
     
     expect(document.querySelector('.book-title').textContent).toBe('І плакалі анёлы');
     expect(document.querySelector('.book-description').textContent).toBe('Беларускае апісанне');
@@ -98,13 +98,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: 'Desc', by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release Date', by: 'Дата Выдання' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: 'Desc', be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release Date', be: 'Дата Выдання' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: 'https://amazon.example.com'
       }
     ];
@@ -118,13 +118,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book2',
-        title: { en: 'Coming Soon', by: 'Скора' },
-        description: { en: 'Desc', by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '150', by: '150' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'Soon', by: 'Скора' } },
-        cta: { en: 'Coming', by: 'Прыходзіць' },
-        cover: { en: 'images/2.png', by: 'images/2.png' },
+        title: { en: 'Coming Soon', be: 'Скора' },
+        description: { en: 'Desc', be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '150', be: '150' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'Soon', be: 'Скора' } },
+        cta: { en: 'Coming', be: 'Прыходзіць' },
+        cover: { en: 'images/2.png', be: 'images/2.png' },
         amazonUrl: ''
       }
     ];
@@ -138,13 +138,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: 'Desc', by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/en.png', by: 'images/by.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: 'Desc', be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/en.png', be: 'images/be.png' },
         amazonUrl: ''
       }
     ];
@@ -152,8 +152,8 @@ describe('Book rendering', () => {
     renderBooks('en');
     expect(document.querySelector('.book-cover-img').getAttribute('src')).toBe('images/en.png');
     
-    renderBooks('by');
-    expect(document.querySelector('.book-cover-img').getAttribute('src')).toBe('images/by.png');
+    renderBooks('be');
+    expect(document.querySelector('.book-cover-img').getAttribute('src')).toBe('images/be.png');
   });
 
   it('should get book data', () => {
@@ -173,13 +173,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: 'Desc', by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: 'Desc', be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -191,13 +191,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: 'Desc', by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: 'Desc', be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -223,13 +223,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: 'Desc', by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: 'Desc', be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -254,13 +254,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: 'Desc', by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: 'Desc', be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -285,13 +285,13 @@ describe('Book rendering', () => {
     // Create multiple books to make it scrollable
     const books = Array.from({ length: 10 }, (_, i) => ({
       id: `book${i + 1}`,
-      title: { en: `Book ${i + 1}`, by: `Кніга ${i + 1}` },
-      description: { en: 'Desc', by: 'Апісанне' },
-      genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-      pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-      release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-      cta: { en: 'Get', by: 'Купіць' },
-      cover: { en: 'images/1.png', by: 'images/1.png' },
+      title: { en: `Book ${i + 1}`, be: `Кніга ${i + 1}` },
+      description: { en: 'Desc', be: 'Апісанне' },
+      genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+      pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+      release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+      cta: { en: 'Get', be: 'Купіць' },
+      cover: { en: 'images/1.png', be: 'images/1.png' },
       amazonUrl: ''
     }));
     
@@ -319,13 +319,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: 'Desc', by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: 'Desc', be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -356,13 +356,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: 'Desc', by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: 'Desc', be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -387,13 +387,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book Title', by: 'Заголовак' },
-        description: { en: 'Long description that will take some space', by: 'Долгае апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get Your Copy', by: 'Купіць Кнігу' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book Title', be: 'Заголовак' },
+        description: { en: 'Long description that will take some space', be: 'Долгае апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get Your Copy', be: 'Купіць Кнігу' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -421,13 +421,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: longDescription, by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: longDescription, be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -455,13 +455,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: longDescription, by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: longDescription, be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -483,13 +483,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: 'Short description', by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: 'Short description', be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -512,13 +512,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: longDescription, by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: longDescription, be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -548,13 +548,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: longDescription, by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: longDescription, be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -589,13 +589,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: longDescription, by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: longDescription, be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -633,13 +633,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Book', by: 'Кніга' },
-        description: { en: longDescription, by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '142', by: '140' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'April', by: 'Красавік' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/1.png', by: 'images/1.png' },
+        title: { en: 'Book', be: 'Кніга' },
+        description: { en: longDescription, be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
         amazonUrl: ''
       }
     ];
@@ -669,13 +669,13 @@ describe('Book rendering', () => {
     const books = [
       {
         id: 'book1',
-        title: { en: 'Test Book', by: 'Тэст Кніга' },
-        description: { en: longDescription, by: 'Апісанне' },
-        genre: { title: { en: 'Genre', by: 'Жанр' }, value: { en: 'Fiction', by: 'Праза' } },
-        pages: { title: { en: 'Pages', by: 'Старонкі' }, value: { en: '100', by: '100' } },
-        release: { title: { en: 'Release', by: 'Выданне' }, value: { en: 'June', by: 'Чэрвень' } },
-        cta: { en: 'Get', by: 'Купіць' },
-        cover: { en: 'images/test.png', by: 'images/test.png' },
+        title: { en: 'Test Book', be: 'Тэст Кніга' },
+        description: { en: longDescription, be: 'Апісанне' },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '100', be: '100' } },
+        release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'June', be: 'Чэрвень' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/test.png', be: 'images/test.png' },
         amazonUrl: ''
       }
     ];

@@ -89,12 +89,12 @@ This installs all dependencies including:
 
 ### Language Support
 - **English (EN)** - Default language
-- **Belarusian (BY)** - Full translation support
+- **Belarusian (BE)** - Full translation support
 - Auto-detection based on browser locale
 - Language preference stored in localStorage
 
 ### Core Functionality
-- **Dynamic Language Switching** - Click EN/BY buttons to switch languages
+- **Dynamic Language Switching** - Click EN/BE buttons to switch languages
 - **Book Information** - Displays localized book title, description, genre, pages, release date
 - **Smooth Navigation** - Anchor links with smooth scrolling
 - **Scroll Spy** - Active navigation highlighting based on scroll position
@@ -137,7 +137,7 @@ Tests  6 passed (6)
 1. **Modify Code**: Edit files in `src/js/`, `src/data/`, or tests
 2. **Run Tests**: `npm test` to verify changes
 3. **Test Locally**: `npm start` and open `http://127.0.0.1:8080`
-4. **Language Testing**: Click EN/BY buttons to verify translations
+4. **Language Testing**: Click EN/BE buttons to verify translations
 
 ## Notes
 
