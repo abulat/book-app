@@ -23,15 +23,30 @@ function truncateText(text, maxLength = 200) {
     return { full: text, truncated: text, isTruncated: false };
   }
 
-  // Find the last space within maxLength characters
-  let truncated = text.substring(0, maxLength);
+  const ellipsis = '...';
+  const maxTextLength = Math.max(maxLength - ellipsis.length - 1, 0);
+  let truncated = text.substring(0, maxTextLength);
   const lastSpaceIndex = truncated.lastIndexOf(' ');
-  
+
   if (lastSpaceIndex > 0) {
     truncated = truncated.substring(0, lastSpaceIndex);
   }
 
-  return { full: text, truncated: truncated + '...', isTruncated: true };
+  return { full: text, truncated: truncated + ellipsis, isTruncated: true };
+}
+
+/**
+ * Escape a string for safe HTML attribute and text usage
+ * @param {string} value - Raw string value
+ * @returns {string} Escaped string
+ */
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 /**
@@ -65,14 +80,15 @@ function buildBookHTML(book, lang) {
   // Truncate description
   const description = get(book.description);
   const { truncated, isTruncated } = truncateText(description);
-  
+
   // Get translations for buttons
-  const showMoreText = getTranslation('books.showMore', lang);
-  const showLessText = getTranslation('books.showLess', lang);
-  
+  const showMoreText = getTranslation('books.showMore', lang) || 'Show more';
+  const showLessText = getTranslation('books.showLess', lang) || 'Show less';
+
   // Build description HTML with show more/less toggle
-  let descriptionHTML = `<p class="book-description ${isTruncated ? 'truncated' : ''}" data-full-text="${description.replace(/"/g, '&quot;')}&nbsp;" data-truncated-text="${truncated.replace(/"/g, '&quot;')}&nbsp;">${truncated}&nbsp;`;
-    
+  let descriptionHTML = `<p class="book-description ${isTruncated ? 'truncated' : ''}" data-full-text="${escapeHtml(description)}" data-truncated-text="${escapeHtml(truncated)}">`;
+  descriptionHTML += `<span class="description-content">${escapeHtml(truncated)}</span>`;
+
   if (isTruncated) {
     // Stripped out all line breaks inside this string so it doesn't push down
     descriptionHTML += `<a class="show-more-btn" data-expanded="false" style="display: inline-flex; gap: 4px; cursor: pointer;"><span class="show-more-text">${showMoreText}</span><span class="show-less-text" style="display: none;">${showLessText}</span></a>`;
@@ -145,37 +161,37 @@ function attachShowMoreHandlers() {
       if (isExpanded) {
         // Collapse
         const truncatedText = descriptionEl.getAttribute('data-truncated-text');
-        
+
         if (contentSpan) {
-          contentSpan.innerHTML = truncatedText;
+          contentSpan.textContent = truncatedText;
         } else {
           // Fallback just in case the span wasn't found
-          descriptionEl.textContent = truncatedText; 
+          descriptionEl.textContent = truncatedText;
         }
-        
+
         descriptionEl.classList.add('truncated');
         showMoreText.style.display = 'inline';
         showLessText.style.display = 'none';
         btn.dataset.expanded = 'false';
-        
+
         if (!contentSpan) descriptionEl.appendChild(btn);
 
       } else {
         // Expand
         const fullText = descriptionEl.getAttribute('data-full-text');
-        
+
         if (contentSpan) {
-          contentSpan.innerHTML = fullText;
+          contentSpan.textContent = fullText;
         } else {
           // Fallback just in case
           descriptionEl.textContent = fullText;
         }
-        
+
         descriptionEl.classList.remove('truncated');
         showMoreText.style.display = 'none';
         showLessText.style.display = 'inline';
         btn.dataset.expanded = 'true';
-        
+
         if (!contentSpan) descriptionEl.appendChild(btn);
       }
     });
