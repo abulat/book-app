@@ -72,6 +72,43 @@ describe('Book rendering', () => {
     expect(bookTitles[1].textContent).toBe('Book Two');
   });
 
+  it('should toggle truncated book description with show more and show less', () => {
+    const longDescription = Array(5).fill('This is a very long book description intended to exceed the maximum truncation length for the test case.').join(' ');
+    const books = [
+      {
+        id: 'book1',
+        title: { en: 'Book One', be: 'Кніга Адна' },
+        description: { en: longDescription, be: longDescription },
+        genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+        pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+        release: { title: { en: 'Release Date', be: 'Дата Выдання' }, value: { en: 'April, 2025', be: 'Красавік 2025' } },
+        cta: { en: 'Get', be: 'Купіць' },
+        cover: { en: 'images/1.png', be: 'images/1.png' },
+        amazonUrl: ''
+      }
+    ];
+
+    setBookData(books);
+    renderBooks('en');
+
+    const descriptionContent = document.querySelector('.book-description .description-content');
+    expect(descriptionContent).toBeTruthy();
+    expect(descriptionContent.textContent.length).toBeLessThan(200);
+
+    const actionBtn = document.querySelector('.show-more-btn');
+    expect(actionBtn).toBeTruthy();
+
+    actionBtn.click();
+
+    expect(descriptionContent.textContent).toBe(longDescription.trim());
+    expect(actionBtn.dataset.expanded).toBe('true');
+
+    actionBtn.click();
+
+    expect(descriptionContent.textContent.length).toBeLessThan(200);
+    expect(actionBtn.dataset.expanded).toBe('false');
+  });
+
   it('should render books in Belarusian', () => {
     const books = [
       {
@@ -441,7 +478,8 @@ describe('Book rendering', () => {
     renderBooks('en');
     
     const description = document.querySelector('.book-description');
-    const text = description.textContent;
+    const content = description.querySelector('.description-content');
+    const text = content.textContent;
     
     // Check that text is truncated and contains ellipsis
     expect(text.length).toBeLessThan(longDescription.length);
@@ -533,12 +571,13 @@ describe('Book rendering', () => {
     
     const showMoreBtn = document.querySelector('.show-more-btn');
     const description = document.querySelector('.book-description');
+    const content = description.querySelector('.description-content');
     
     // Click show more button
     showMoreBtn.click();
     
     // Check that text is now full and button state changed
-    expect(description.textContent).toBe(longDescription);
+    expect(content.textContent).toBe(longDescription);
     expect(showMoreBtn.dataset.expanded).toBe('true');
   });
 
@@ -569,17 +608,18 @@ describe('Book rendering', () => {
     
     const showMoreBtn = document.querySelector('.show-more-btn');
     const description = document.querySelector('.book-description');
+    const content = description.querySelector('.description-content');
     
     // Expand
     showMoreBtn.click();
-    expect(description.textContent).toBe(longDescription);
+    expect(content.textContent).toBe(longDescription);
     
     // Collapse
     showMoreBtn.click();
     
     // Check that text is truncated again and ends with ellipsis
-    expect(description.textContent).not.toBe(longDescription);
-    expect(description.textContent.endsWith('...')).toBe(true);
+    expect(content.textContent).not.toBe(longDescription);
+    expect(content.textContent.endsWith('...')).toBe(true);
     expect(showMoreBtn.dataset.expanded).toBe('false');
   });
 
@@ -609,6 +649,7 @@ describe('Book rendering', () => {
     renderBooks('en');
     
     const description = document.querySelector('.book-description');
+    const content = description.querySelector('.description-content');
     const fullTextAttr = description.getAttribute('data-full-text');
     const truncatedAttr = description.getAttribute('data-truncated-text');
     
@@ -624,7 +665,7 @@ describe('Book rendering', () => {
     expect(truncatedAttr.endsWith('...')).toBe(true);
     
     // Initial display should show truncated version
-    expect(description.textContent).toBe(truncatedAttr);
+    expect(content.textContent).toBe(truncatedAttr);
   });
 
   it('should display show more/less buttons with text color styling', () => {
@@ -690,7 +731,8 @@ describe('Book rendering', () => {
     
     // Step 2: Remember displayed book description (should be truncated around 200 chars)
     const descriptionEl = document.querySelector('.book-description');
-    const initialDisplayedText = descriptionEl.textContent;
+    const descriptionContent = descriptionEl.querySelector('.description-content');
+    const initialDisplayedText = descriptionContent.textContent;
     
     // Acceptance: text at step 2 should be around 200 chars (allow 50 char tolerance)
     expect(initialDisplayedText.length).toBeGreaterThan(150);
@@ -704,7 +746,7 @@ describe('Book rendering', () => {
     showMoreBtn.click();
     
     // Step 4: Remember displayed book description (should be full)
-    const expandedText = descriptionEl.textContent;
+    const expandedText = descriptionContent.textContent;
     expect(expandedText.length).toBeGreaterThan(initialDisplayedText.length);
     expect(expandedText).toBe(longDescription);
     
@@ -714,7 +756,7 @@ describe('Book rendering', () => {
     showLessBtn.click();
     
     // Step 6: Compare displayed text - should match initial truncated text
-    const collapsedText = descriptionEl.textContent;
+    const collapsedText = descriptionContent.textContent;
     
     // Acceptance: after clicking show less, visible text should be less than 200 chars
     expect(collapsedText.length).toBeLessThan(200);
