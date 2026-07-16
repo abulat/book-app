@@ -1,5 +1,5 @@
 import { config } from './config.js';
-import { getDefaultLanguage, loadTranslationsData, loadAuthorData, loadBookData, setLanguage } from './app.js';
+import { getDefaultLanguage, loadTranslationsData, loadAuthorData, loadBookData, setLanguage } from './app.js?v=20260714';
 
 function attachLanguageButtons() {
   document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -15,6 +15,10 @@ function attachSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (event) {
       const targetId = this.getAttribute('href');
+      if (!targetId || targetId === '#') {
+        return;
+      }
+
       const target = document.querySelector(targetId);
       if (target) {
         event.preventDefault();

@@ -24,6 +24,7 @@
         "contact.form.error": "There was an error sending your message. Please try again or email directly to: ales@allesbegood.com",
         "books.showMore": "Show More",
         "books.showLess": "Show Less",
+        "books.readPreview": "Read",
         "footer.copyright": "© 2024 Ales Begood. All rights reserved."
     },
   "be": {
@@ -51,6 +52,7 @@
     "contact.form.error": "Адбылася памылка пры адпраўцы паведамлення. Калі ласка, паспрабуйце зноў або напішыце на: ales@allesbegood.com",
     "books.showMore": "Паказаць больш",
     "books.showLess": "Паказаць менш",
+    "books.readPreview": "Праглядзець",
     "footer.copyright": "© 2024 Алесь Бігуд. Усе правы абаронены."
   }
 }

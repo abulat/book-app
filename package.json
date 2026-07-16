@@ -13,5 +13,9 @@
     "http-server": "^14.1.1",
     "jsdom": "^27.0.1",
     "vitest": "^1.4.0"
+  },
+  "dependencies": {
+    "epubjs": "^0.3.93",
+    "jszip": "^3.10.1"
   }
 }
