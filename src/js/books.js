@@ -3,7 +3,8 @@
 // ============================================================================
 
 import { getState } from './state.js';
-import { getCurrentLang, getTranslation } from './translations.js';
+import { getTranslation } from './translations.js';
+import { getEbookPreview, attachEbookPreviewHandlers } from './book.preview.js';
 
 const DOM = {
   booksContainer: 'books-container',
@@ -62,46 +63,6 @@ function getLocalizedValue(obj, lang) {
 }
 
 /**
- * Extract ebook preview content from book data
- * @param {object} book - Book data object
- * @returns {{type: string, content?: string, source?: string}|null} Ebook preview info
- */
-function resolveEbookSource(source) {
-  if (!source) return null;
-  if (/^(https?:)?\/\//i.test(source) || source.startsWith('data:')) {
-    return source;
-  }
-
-  const normalized = source.trim().replace(/^\.\//, '');
-  const candidates = [normalized];
-
-  if (!normalized.startsWith('data/')) {
-    candidates.push(`data/${normalized}`);
-  }
-
-  if (normalized.startsWith('ebooks/')) {
-    candidates.push(`data/ebook/${normalized.replace(/^ebooks\//, '')}`);
-  } else if (!normalized.startsWith('data/ebook/')) {
-    candidates.push(`data/ebook/${normalized}`);
-  }
-
-  return candidates.find(candidate => Boolean(candidate));
-}
-
-function getEbookPreview(book) {
-  if (!book?.ebook) return null;
-
-  let ebook = null;
-  if (typeof book.ebook === 'object') {
-    ebook = book.ebook[getCurrentLang()];
-  } else if (typeof book.ebook === 'string') {
-    ebook = book.ebook;
-  }
-
-  return ebook;
-}
-
-/**
  * Build book content HTML structure
  * @param {object} book - Book data object
  * @param {string} lang - Language code
@@ -126,7 +87,7 @@ function buildBookHTML(book, lang) {
   const showMoreText = getTranslation('books.showMore', lang) || 'Show more';
   const showLessText = getTranslation('books.showLess', lang) || 'Show less';
   const previewText = getTranslation('books.readPreview', lang) || 'Read preview';
-  const ebookPreview = getEbookPreview(book);
+  const ebookPreview = getEbookPreview(book, lang);
 
   // Build description HTML with show more/less toggle
   let descriptionHTML = `<p class="book-description ${isTruncated ? 'truncated' : ''}" data-full-text="${escapeHtml(description)}" data-truncated-text="${escapeHtml(truncated)}">`;
@@ -140,7 +101,7 @@ function buildBookHTML(book, lang) {
   descriptionHTML += `</p>`;
 
   const previewLinkHTML = ebookPreview
-    ? `<a href="#" class="ebook-preview-link" data-book-id="${book.id}">${previewText}</a>`
+    ? `<a href="#" class="ebook-preview-link" data-book-id="${book.id}" data-lang="${lang}">${previewText}</a>`
     : '';
 
   return `
@@ -246,10 +207,10 @@ function attachShowMoreHandlers() {
   });
 }
 
-/**
+
 function handleExternalLink(btn) {
   const href = btn.getAttribute('href');
-  if (href.startsWith('http')) {
+  if (href && href.startsWith('http')) {
     window.open(href, '_blank');
   }
 }
@@ -280,128 +241,6 @@ function attachBookActionHandlers() {
         event.preventDefault();
         handleContactLink(btn);
       }
-    });
-  });
-}
-
-/**
- * Ensure the ebook preview modal exists in the DOM
- * @returns {HTMLElement} The modal element
- */
-function ensureEbookModal() {
-  let modal = document.querySelector('.ebook-preview-modal');
-
-  if (modal) return modal;
-
-  modal = document.createElement('div');
-  modal.className = 'ebook-preview-modal';
-  modal.setAttribute('aria-hidden', 'true');
-  modal.innerHTML = `
-    <div class="ebook-preview-backdrop"></div>
-    <div class="ebook-preview-dialog" role="dialog" aria-modal="true" aria-label="Ebook preview">
-      <div class="ebook-preview-header">
-        <h3 class="ebook-preview-title">Preview</h3>
-        <button class="ebook-preview-close" type="button" aria-label="Close preview">×</button>
-      </div>
-      <div class="ebook-preview-body"></div>
-    </div>
-  `;
-
-  document.body.appendChild(modal);
-  return modal;
-}
-
-/**
- * Render ebook preview content into the modal
- * @param {HTMLElement} modal - Modal element
- * @param {object} book - Book data object
- */
-async function openEbookPreview(modal, book) {
-  const body = modal.querySelector('.ebook-preview-body');
-  if (!body) return;
-
-  modal.classList.add('is-open');
-  modal.setAttribute('aria-hidden', 'false');
-  body.innerHTML = '<div class="ebook-preview-loading">Loading preview…</div>';
-  console.log('Opening ebook preview for book:', book);
-  const preview = getEbookPreview(book);
-  if (!preview) {
-    body.innerHTML = '<div class="ebook-preview-empty">Preview content is unavailable.</div>';
-    return;
-  }
-
-  try {
-    const Epub = window.ePub || window.ePubJS || window.epubjs;
-    if (!Epub) {
-      throw new Error('EPUB.js is not available in the browser.');
-    }
-
-    const container = document.createElement('div');
-    container.className = 'ebook-preview-renderer';
-    body.innerHTML = '';
-    body.appendChild(container);
-
-    const epubBook = Epub(preview, {
-      openAs: 'epub'
-    });
-
-    console.log('Book object created:', epubBook);
-
-    await epubBook.ready;
-
-    const rendition = epubBook.renderTo(container, {
-      width: '100%',
-      height: '700px',
-      flow: 'scrolled-doc'
-    });
-
-
-    for (const section of epubBook.spine.items) {
-      const sectionContainer = document.createElement('div');
-
-      sectionContainer.className = 'epub-section';
-
-      container.appendChild(sectionContainer);
-
-      const sectionRendition = epubBook.renderTo(sectionContainer, {
-        width: '100%',
-        flow: 'scrolled-doc'
-      });
-
-      await sectionRendition.display(section.href);
-    }
-  } catch (error) {
-    console.warn('Unable to render EPUB preview:', error);
-    body.innerHTML = '<div class="ebook-preview-empty">Preview content is unavailable in this environment.</div>';
-  }
-}
-
-/**
- * Close the ebook preview modal
- * @param {HTMLElement} modal - Modal element
- */
-function closeEbookPreview(modal) {
-  if (!modal) return;
-  modal.classList.remove('is-open');
-  modal.setAttribute('aria-hidden', 'true');
-}
-
-/**
- * Attach click handlers to ebook preview links
- */
-function attachEbookPreviewHandlers() {
-  document.querySelectorAll(DOM.ebookPreviewLink).forEach(link => {
-    link.addEventListener('click', event => {
-      event.preventDefault();
-      const bookId = link.getAttribute('data-book-id');
-      const book = getState().books.find(item => item.id === bookId);
-      if (!book) return;
-
-      const modal = ensureEbookModal();
-      openEbookPreview(modal, book);
-
-      modal.querySelector('.ebook-preview-close')?.addEventListener('click', () => closeEbookPreview(modal), { once: true });
-      modal.querySelector('.ebook-preview-backdrop')?.addEventListener('click', () => closeEbookPreview(modal), { once: true });
     });
   });
 }

@@ -169,7 +169,7 @@ describe('Book rendering', () => {
     const display = vi.fn().mockResolvedValue();
     const renderTo = vi.fn(() => ({ display }));
     const open = vi.fn().mockResolvedValue();
-    const epubCtor = vi.fn(() => ({ open, renderTo }));
+    const epubCtor = vi.fn(() => ({ open, renderTo, spine: { items: [{ href: 'chapter1' }] } }));
 
     const originalEpub = window.ePub;
     window.ePub = epubCtor;
@@ -196,9 +196,8 @@ describe('Book rendering', () => {
     await new Promise(resolve => setTimeout(resolve, 0));
 
     expect(epubCtor).toHaveBeenCalledWith('https://example.com/book.epub', { openAs: 'epub' });
-    expect(open).toHaveBeenCalled();
-    expect(renderTo).toHaveBeenCalledWith(expect.any(HTMLElement), { width: '100%', height: '500px' });
-    expect(display).toHaveBeenCalled();
+    expect(renderTo).toHaveBeenCalledWith(expect.any(HTMLElement), { width: '100%', height: '700px', flow: 'scrolled-doc' });
+    expect(display).toHaveBeenCalledWith('chapter1');
 
     window.ePub = originalEpub;
   });
