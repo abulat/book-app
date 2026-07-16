@@ -336,6 +336,92 @@ hr {
     position: relative;
 }
 
+.ebook-preview-wrapper {
+    margin-top: 0.25rem;
+}
+
+.ebook-preview-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: #2c3e50;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.ebook-preview-link:hover {
+    color: #1a2530;
+}
+
+.ebook-preview-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 2000;
+}
+
+.ebook-preview-modal.is-open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ebook-preview-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.ebook-preview-dialog {
+    position: relative;
+    width: min(900px, calc(100vw - 2rem));
+    max-height: min(80vh, 760px);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.ebook-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.ebook-preview-title {
+    margin: 0;
+}
+
+.ebook-preview-close {
+    border: none;
+    background: transparent;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #555;
+}
+
+.ebook-preview-body {
+    padding: 1.25rem;
+    overflow-y: auto;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+.ebook-preview-loading,
+.ebook-preview-empty {
+    color: #555;
+    font-style: italic;
+}
+
+.ebook-preview-renderer {
+    min-height: 500px;
+}
+
 .book-title {
     margin: 0;
 }

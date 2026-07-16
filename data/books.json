@@ -48,6 +48,10 @@
         "en": "images/I-Plakaly-anioly-Cover-EN.png",
         "be": "images/I-Plakaly-anioly-Cover-BY.png"
       },
+      "ebook": {
+        "en": "",
+        "be": "data/ebook/І плакалі анёлы - Алесь Бігуд.epub"
+      },
       "amazonUrl": "https://www.amazon.nl/-/en/Ales-Begood-ebook/dp/B0F55M8MLS/"
     },
     {
@@ -97,6 +101,10 @@
       "cover": {
         "en": "images/вокладка-4.png",
         "be": "images/вокладка-4.png"
+      },
+      "ebook": {
+        "en": "",
+        "be": "data/ebook/Вольная птушка - Алесь Бігуд.epub"
       },
       "amazonUrl": ""
     },
@@ -148,6 +156,7 @@
         "en": "images/Скрозь час насустрач лёсу.jpg",
         "be": "images/Скрозь час насустрач лёсу.jpg"
       },
+      "ebook": "data/ebook/Скрозь час насустрач лёсу - Алесь Бігуд.epub",
       "amazonUrl": ""
     }
     

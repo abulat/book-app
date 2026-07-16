@@ -4,12 +4,14 @@
 
 import { getState } from './state.js';
 import { getTranslation } from './translations.js';
+import { getEbookPreview, attachEbookPreviewHandlers } from './book.preview.js';
 
 const DOM = {
   booksContainer: 'books-container',
   contactSection: 'contact',
   bookActionBtn: '.book-action-btn',
-  booksScrollWrapper: 'books-scroll-wrapper'
+  booksScrollWrapper: 'books-scroll-wrapper',
+  ebookPreviewLink: '.ebook-preview-link'
 };
 
 /**
@@ -84,6 +86,8 @@ function buildBookHTML(book, lang) {
   // Get translations for buttons
   const showMoreText = getTranslation('books.showMore', lang) || 'Show more';
   const showLessText = getTranslation('books.showLess', lang) || 'Show less';
+  const previewText = getTranslation('books.readPreview', lang) || 'Read preview';
+  const ebookPreview = getEbookPreview(book, lang);
 
   // Build description HTML with show more/less toggle
   let descriptionHTML = `<p class="book-description ${isTruncated ? 'truncated' : ''}" data-full-text="${escapeHtml(description)}" data-truncated-text="${escapeHtml(truncated)}">`;
@@ -95,6 +99,10 @@ function buildBookHTML(book, lang) {
   }
 
   descriptionHTML += `</p>`;
+
+  const previewLinkHTML = ebookPreview
+    ? `<a href="#" class="ebook-preview-link" data-book-id="${book.id}" data-lang="${lang}">${previewText}</a>`
+    : '';
 
   return `
     <div class="book-cover">
@@ -124,6 +132,7 @@ function buildBookHTML(book, lang) {
     <div class="book-details">
       <h3 class="book-title">${get(book.title) || 'Book Title'}</h3>
       ${descriptionHTML}
+      ${previewLinkHTML ? `<div class="ebook-preview-wrapper">${previewLinkHTML}</div>` : ''}
       <a href="${lang === 'en' && book.amazonUrl ? book.amazonUrl : '#contact'}" class="cta-button book-action-btn">${get(book.cta) || 'Get Your Copy'}</a>
     </div>
   `;
@@ -198,10 +207,10 @@ function attachShowMoreHandlers() {
   });
 }
 
-/**
+
 function handleExternalLink(btn) {
   const href = btn.getAttribute('href');
-  if (href.startsWith('http')) {
+  if (href && href.startsWith('http')) {
     window.open(href, '_blank');
   }
 }
@@ -344,6 +353,7 @@ export function renderBooks(lang) {
   });
 
   attachBookActionHandlers();
+  attachEbookPreviewHandlers();
   attachShowMoreHandlers();
   attachKeyboardNavigation();
   attachArrowButtonHandlers();
