@@ -172,6 +172,36 @@ export async function openEbookPreview(modal, book, lang) {
         flow: 'scrolled-doc'
       });
 
+
+      sectionRendition.hooks.content.register((contents) => {
+        const doc = contents.document;
+
+        const style = doc.createElement('style');
+
+        style.textContent = `
+            * {
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            }
+        `;
+
+        doc.head.appendChild(style);
+
+        doc.addEventListener('selectstart', event => {
+            event.preventDefault();
+        });
+
+        doc.addEventListener('copy', event => {
+            event.preventDefault();
+        });
+
+        doc.addEventListener('contextmenu', event => {
+            event.preventDefault();
+        });
+      });
+
       await sectionRendition.display(section.href);
     }
   } catch (error) {
