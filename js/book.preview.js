@@ -100,6 +100,9 @@ function ensureEbookModal() {
     </div>
   `;
 
+  modal.addEventListener('copy', event => event.preventDefault());
+  modal.addEventListener('selectstart', event => event.preventDefault());
+  modal.addEventListener('dragstart', event => event.preventDefault());
   document.body.appendChild(modal);
   return modal;
 }
@@ -114,6 +117,7 @@ export async function openEbookPreview(modal, book, lang) {
   const body = modal.querySelector('.ebook-preview-body');
   if (!body) return;
 
+  blockEbookTextSelection(modal);
   modal.classList.add('is-open');
   modal.setAttribute('aria-hidden', 'false');
   body.innerHTML = '<div class="ebook-preview-loading">Loading preview…</div>';
@@ -180,6 +184,39 @@ function closeEbookPreview(modal) {
   if (!modal) return;
   modal.classList.remove('is-open');
   modal.setAttribute('aria-hidden', 'true');
+  unblockEbookTextSelection(modal);
+}
+
+function blockEbookTextSelection(modal) {
+  if (!modal || modal._ebookPreviewBlocked) return;
+
+  const preventAction = event => event.preventDefault();
+  const clearSelection = () => {
+    const selection = window.getSelection();
+    if (selection && !selection.isCollapsed) {
+      selection.removeAllRanges();
+    }
+  };
+
+  document.addEventListener('copy', preventAction);
+  document.addEventListener('cut', preventAction);
+  document.addEventListener('selectstart', preventAction);
+  document.addEventListener('dragstart', preventAction);
+  document.addEventListener('selectionchange', clearSelection);
+
+  modal._ebookPreviewBlocked = { preventAction, clearSelection };
+}
+
+function unblockEbookTextSelection(modal) {
+  const blocked = modal?._ebookPreviewBlocked;
+  if (!blocked) return;
+
+  document.removeEventListener('copy', blocked.preventAction);
+  document.removeEventListener('cut', blocked.preventAction);
+  document.removeEventListener('selectstart', blocked.preventAction);
+  document.removeEventListener('dragstart', blocked.preventAction);
+  document.removeEventListener('selectionchange', blocked.clearSelection);
+  delete modal._ebookPreviewBlocked;
 }
 
 /**

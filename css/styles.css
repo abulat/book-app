@@ -348,6 +348,15 @@ hr {
     font-weight: 600;
     text-decoration: underline;
     cursor: pointer;
+    padding-bottom: 0.2em;
+}
+
+.ebook-preview-icon {
+    width: 3.3rem;
+    height: 3.3rem;
+    flex-shrink: 0;
+    display: inline-block;
+    margin-left: -9px;
 }
 
 .ebook-preview-link:hover {
@@ -410,6 +419,16 @@ hr {
     overflow-y: auto;
     line-height: 1.7;
     white-space: pre-wrap;
+}
+
+.ebook-preview-dialog,
+.ebook-preview-body,
+.ebook-preview-renderer,
+.ebook-preview-renderer * {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .ebook-preview-loading,
@@ -721,7 +740,6 @@ body, html {
 .book-description {
     text-align: justify;
     max-width: 100%; 
-    margin: 0em 0em 1em 0em
 }
 
 @media (max-width: 768px) {
