@@ -101,7 +101,7 @@ function buildBookHTML(book, lang) {
   descriptionHTML += `</p>`;
 
   const previewLinkHTML = ebookPreview
-    ? `<a href="#" class="ebook-preview-link" data-book-id="${book.id}" data-lang="${lang}">${previewText}</a>`
+    ? `<a href="#" class="ebook-preview-link" data-book-id="${book.id}" data-lang="${lang}"><img src="/images/preview-65.svg" alt="" class="ebook-preview-icon" aria-hidden="true">${previewText}</a>`
     : '';
 
   return `
