@@ -147,8 +147,6 @@ export async function openEbookPreview(modal, book, lang) {
       openAs: 'epub'
     });
 
-    console.log('Book object created:', epubBook);
-
     await epubBook.ready;
 
     const rendition = epubBook.renderTo(container, {
