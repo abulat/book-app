@@ -11,6 +11,30 @@ function attachLanguageButtons() {
   });
 }
 
+function attachMobileNavigation() {
+  const toggle = document.querySelector('.nav-toggle');
+  const navigation = document.querySelector('.nav-links');
+  if (!toggle || !navigation) {
+    return;
+  }
+
+  const closeNavigation = () => {
+    navigation.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open navigation menu');
+  };
+
+  toggle.addEventListener('click', () => {
+    const isOpen = navigation.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+  });
+
+  navigation.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeNavigation);
+  });
+}
+
 function attachSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (event) {
@@ -103,6 +127,7 @@ async function initialize() {
 
   setLanguage(initialLang);
   attachLanguageButtons();
+  attachMobileNavigation();
   attachSmoothScroll();
   attachScrollSpy();
   attachFormHandler();
