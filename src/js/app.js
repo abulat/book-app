@@ -5,7 +5,7 @@
 import { getState, setTranslationsData, setBookData, setAuthorData } from './state.js';
 import { applyTranslations } from './translations.js';
 import { renderAuthor } from './author.js';
-import { renderBooks } from './books.js?v=20260714';
+import { renderBooks } from './books.js?v=20260909-ui0009';
 
 const DOM = {
   langButtons: '.lang-btn',

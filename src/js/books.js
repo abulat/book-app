@@ -105,35 +105,37 @@ function buildBookHTML(book, lang) {
     : '';
 
   return `
-    <div class="book-cover">
-      <div class="cover-wrapper">
-        <div class="cover-placeholder">
-          <img src="${coverSrc}" alt="${get(book.title)}" class="book-cover-img" loading="lazy" decoding="async">
-        </div>
-        <div class="cover-popup-overlay">
-          <img src="${coverSrc}" alt="${get(book.title)}" class="cover-popup-img" loading="lazy" decoding="async">
-        </div>
-      </div>
-      <div class="cover-metadata">
-        <div class="metadata-item">
-          <h4 class="metadata-label">${get(book.genre?.title) || 'Genre'}</h4>
-          <p class="metadata-value">${genreTags}</p>
-        </div>
-        <div class="metadata-item">
-          <h4 class="metadata-label">${get(book.pages?.title) || 'Pages'}</h4>
-          <p class="metadata-value">${get(book.pages?.value)}</p>
-        </div>
-        <div class="metadata-item">
-          <h4 class="metadata-label">${get(book.release?.title) || 'Release Date'}</h4>
-          <p class="metadata-value">${get(book.release?.value)}</p>
+    <h3 class="book-title">${get(book.title) || 'Book Title'}</h3>
+    <div class="book-flow">
+      <div class="book-cover">
+        <div class="cover-wrapper">
+          <div class="cover-placeholder">
+            <img src="${coverSrc}" alt="${get(book.title)}" class="book-cover-img" loading="lazy" decoding="async">
+          </div>
+          <div class="cover-popup-overlay">
+            <img src="${coverSrc}" alt="${get(book.title)}" class="cover-popup-img" loading="lazy" decoding="async">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="book-details">
-      <h3 class="book-title">${get(book.title) || 'Book Title'}</h3>
-      ${descriptionHTML}
-      ${previewLinkHTML ? `<div class="ebook-preview-wrapper">${previewLinkHTML}</div>` : ''}
-      <a href="${lang === 'en' && book.amazonUrl ? book.amazonUrl : '#contact'}" class="cta-button book-action-btn">${get(book.cta) || 'Get Your Copy'}</a>
+      <div class="book-details">
+        ${descriptionHTML}
+        ${previewLinkHTML ? `<div class="ebook-preview-wrapper">${previewLinkHTML}</div>` : ''}
+        <div class="cover-metadata">
+          <div class="metadata-item">
+            <h4 class="metadata-label">${get(book.genre?.title) || 'Genre'}</h4>
+            <p class="metadata-value">${genreTags}</p>
+          </div>
+          <div class="metadata-item">
+            <h4 class="metadata-label">${get(book.pages?.title) || 'Pages'}</h4>
+            <p class="metadata-value">${get(book.pages?.value)}</p>
+          </div>
+          <div class="metadata-item">
+            <h4 class="metadata-label">${get(book.release?.title) || 'Release Date'}</h4>
+            <p class="metadata-value">${get(book.release?.value)}</p>
+          </div>
+        </div>
+        <a href="${lang === 'en' && book.amazonUrl ? book.amazonUrl : '#contact'}" class="cta-button book-action-btn">${get(book.cta) || 'Get Your Copy'}</a>
+      </div>
     </div>
   `;
 }

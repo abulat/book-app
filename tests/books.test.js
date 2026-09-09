@@ -353,7 +353,7 @@ describe('Book rendering', () => {
     expect(leftArrow.classList.contains('disabled')).toBe(true);
   });
 
-  it('should have book-details with flex layout for sticky button', () => {
+  it('should render the title above the book flow', () => {
     const books = [
       {
         id: 'book1',
@@ -380,12 +380,15 @@ describe('Book rendering', () => {
     // Verify that book-details element exists
     expect(bookDetails).not.toBeNull();
     
-    // Verify that book-details contains title, description, and button
-    const title = bookDetails.querySelector('.book-title');
+    const bookContent = document.querySelector('.book-content');
+    const title = bookContent.querySelector('.book-title');
+    const bookFlow = bookContent.querySelector('.book-flow');
     const description = bookDetails.querySelector('.book-description');
     const button = bookDetails.querySelector('.book-action-btn');
     
     expect(title).not.toBeNull();
+    expect(bookFlow).not.toBeNull();
+    expect(bookContent.firstElementChild).toBe(title);
     expect(description).not.toBeNull();
     expect(button).not.toBeNull();
   });

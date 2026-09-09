@@ -325,28 +325,23 @@ hr {
 
 .book-content {
     flex: 0 0 calc(90% - 2rem);
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem 2em;
+    display: block;
     padding-right: 3rem;
     min-width: 0;
 }
 
+.book-flow {
+    display: block;
+}
+
 .book-cover {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.5rem;
+    float: left;
+    width: 145px;
+    margin: 0 2rem 1rem 0;
 }
 
 .book-details {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    flex: 1;
     min-width: 0;
-    position: relative;
 }
 
 .ebook-preview-wrapper {
@@ -457,7 +452,7 @@ hr {
 }
 
 .book-title {
-    margin: 0;
+    margin: 0 0 1rem;
 }
 
 .book-description {
@@ -485,8 +480,8 @@ hr {
 }
 
 .book-action-btn {
-    margin-top: auto;
-    align-self: flex-start;
+    clear: both;
+    margin-top: 1rem;
 }
 
 .cover-wrapper {
@@ -560,6 +555,12 @@ hr {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+.book-flow::after {
+    content: '';
+    display: table;
+    clear: both;
 }
 
 .metadata-item {
@@ -906,9 +907,17 @@ body {
         flex: 0 0 100%;
         width: 100%;
         max-width: 100%;
-        flex-direction: column;
-        gap: 1.5rem;
         padding-right: 0;
+    }
+
+    .book-title {
+        text-align: center;
+    }
+
+    .book-cover {
+        float: none;
+        width: 100%;
+        margin: 0 0 1rem;
     }
 
     .author-image,
@@ -926,12 +935,33 @@ body {
     }
 
     .book-details,
-    .book-cover {
+    .book-flow {
         width: 100%;
         max-width: 100%;
-        justify-content: center;
-        align-items: center;
         text-align: center;
+    }
+
+    .book-details {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .book-description {
+        order: 1;
+    }
+
+    .ebook-preview-wrapper {
+        order: 2;
+    }
+
+    .cover-metadata {
+        order: 3;
+        text-align: left;
+    }
+
+    .book-action-btn {
+        order: 4;
     }
     
     .book-action-btn {
@@ -1100,10 +1130,6 @@ body {
         width: 100%;
         max-width: 100%;
         gap: 1rem;
-    }
-
-    .book-cover {
-        width: 100%;
     }
 
     .cover-placeholder {
