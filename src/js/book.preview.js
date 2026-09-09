@@ -173,7 +173,7 @@ export async function openEbookPreview(modal, book, lang) {
       });
 
 
-      sectionRendition.hooks.content.register((contents) => {
+      sectionRendition.hooks?.content?.register?.((contents) => {
         const doc = contents.document;
 
         const style = doc.createElement('style');
