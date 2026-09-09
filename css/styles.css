@@ -7,8 +7,8 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    font-size: 1.4rem;
-    line-height: 1.7;
+    font-size: 1rem;
+    line-height: 1.6;
     color: #333;
     padding-top: 80px;
 }
@@ -39,7 +39,7 @@ hr {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 clamp(1rem, 5vw, 2rem);
 }
 
 /* Navigation */
@@ -64,6 +64,19 @@ hr {
     position: relative;
     flex-wrap: wrap;
     gap: 1rem;
+}
+
+.nav-toggle {
+    display: none;
+    min-width: 44px;
+    min-height: 44px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    color: #333;
+    cursor: pointer;
+    font-size: 1.4rem;
+    line-height: 1;
 }
 
 .logo {
@@ -157,7 +170,7 @@ hr {
 /* Buttons */
 .cta-button {
     display: inline-block;
-    width: 100%;
+    min-height: 44px;
     padding: 1rem 2rem;
     background-color: #333;
     color: white;
@@ -254,10 +267,10 @@ hr {
     justify-content: center;
     gap: 2rem;
     position: relative;
-    width: 110%;       /* Force wrapper to match container bounds */
-    max-width: 105%;   /* Prevent it from expanding wider than viewport */
-    overflow: hidden;  /* Clean up stray layouts */
-    margin: 0 30px 3rem -30px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    margin: 0 0 3rem;
 }
 
 .carousel-arrow {
@@ -407,6 +420,8 @@ hr {
 }
 
 .ebook-preview-close {
+    min-width: 44px;
+    min-height: 44px;
     border: none;
     background: transparent;
     font-size: 1.8rem;
@@ -508,7 +523,7 @@ hr {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    width: min(400px, calc(100vw - 2rem));
     height: auto;
     aspect-ratio: 2/3;
     background: white;
@@ -624,6 +639,7 @@ hr {
 }
 
 input, textarea {
+    min-height: 44px;
     padding: 0.8rem;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -648,6 +664,9 @@ textarea {
 }
 
 .social-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
     color: #333;
     text-decoration: none;
     transition: color 0.3s ease;
@@ -732,9 +751,13 @@ footer {
 }
 
 /* Limit minimal page width */
-body, html {
-    min-width: 480px;
-    overflow-x: auto;
+html {
+    overflow-x: hidden;
+}
+
+body {
+    min-width: 0;
+    overflow-x: hidden;
 }
 
 .book-description {
@@ -760,6 +783,20 @@ body, html {
     }
 }
 
+@media (min-width: 769px) and (max-width: 1023px) {
+    .hero {
+        min-height: 70vh;
+        height: auto;
+        padding: 5rem 0;
+    }
+
+    .author-content,
+    .contact-content {
+        grid-template-columns: 1fr 1.5fr;
+        gap: 2rem;
+    }
+}
+
 @media (max-width: 768px) {
     body {
         font-size: 16px;
@@ -776,14 +813,33 @@ body, html {
         font-size: 1.2rem;
     }
 
+    .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+    }
+
     .nav-links {
-        gap: 0.75rem;
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.25rem;
+        order: 3;
+        margin: 0;
+        padding: 0.5rem 0 0.25rem;
+    }
+
+    .nav-links.is-open {
         display: flex;
-        font-size: 0.9rem;
     }
     
     .nav-links a {
-        font-size: 0.85rem;
+        display: block;
+        min-height: 44px;
+        padding: 0.65rem 0.75rem;
+        font-size: 1rem;
     }
     
     .language-switcher {
@@ -791,6 +847,8 @@ body, html {
     }
     
     .lang-btn {
+        min-width: 44px;
+        min-height: 44px;
         padding: 0.25rem 0.5rem;
         font-size: 0.8rem;
     }
@@ -830,8 +888,8 @@ body, html {
     }
 
     .carousel-arrow {
-        width: 40px;
-        height: 40px;
+        width: 44px;
+        height: 44px;
         font-size: 1.2rem;
     }
 
@@ -839,10 +897,15 @@ body, html {
         gap: 2rem;
         padding: 1rem 0;
         flex: 1;
+        width: 100%;
+        max-width: 100%;
+        align-self: stretch;
     }
 
     .book-content {
         flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
         flex-direction: column;
         gap: 1.5rem;
         padding-right: 0;
@@ -856,9 +919,9 @@ body, html {
     }
 
     .cover-placeholder {
-        width: 120%;
-        max-width: 320px;
-        min-width: 140px;
+        width: min(100%, 320px);
+        max-width: 100%;
+        min-width: 0;
         margin: 0 auto;
     }
 
@@ -875,6 +938,7 @@ body, html {
         margin-top: 1rem;
         padding: 0.8rem 1.5rem;
         font-size: 0.9rem;
+        width: 100%;
     }
 
     .book-features {
@@ -928,7 +992,6 @@ body, html {
 /* Ultra-mobile optimization (max-width: 480px) */
 @media (max-width: 480px) {
     body {
-        font-size: 14px;
         padding-top: 70px;
     }
 
@@ -973,24 +1036,14 @@ body, html {
         letter-spacing: 0;
     }
 
-    .nav-links {
-        gap: 0.5rem;
-        font-size: 0.75rem;
-        width: 100%;
-        order: 3;
-    }
-
-    .nav-links a {
-        font-size: 0.75rem;
-        padding: 0.3rem 0.5rem;
-    }
-
     .language-switcher {
         margin-left: auto;
         gap: 0.3rem;
     }
 
     .lang-btn {
+        min-width: 44px;
+        min-height: 44px;
         padding: 0.2rem 0.4rem;
         font-size: 0.7rem;
     }
@@ -1025,8 +1078,8 @@ body, html {
     }
 
     .carousel-arrow {
-        width: 36px;
-        height: 36px;
+        width: 44px;
+        height: 44px;
         font-size: 1rem;
         padding: 0.25rem;
     }
@@ -1035,10 +1088,17 @@ body, html {
         gap: 1.5rem;
         padding: 0.5rem 0;
         overflow-x: auto;
+        flex: 0 1 100%;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        align-self: stretch;
     }
 
     .book-content {
         flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
         gap: 1rem;
     }
 
