@@ -101,17 +101,17 @@ function buildBookHTML(book, lang) {
   descriptionHTML += `</p>`;
 
   const previewLinkHTML = ebookPreview
-    ? `<a href="#" class="ebook-preview-link" data-book-id="${book.id}" data-lang="${lang}"><img src="images/preview-65.svg" alt="" class="ebook-preview-icon" aria-hidden="true">${previewText}</a>`
+    ? `<a href="#" class="ebook-preview-link" data-book-id="${book.id}" data-lang="${lang}"><img src="images/preview-65.svg" alt="" class="ebook-preview-icon" aria-hidden="true" width="53" height="53">${previewText}</a>`
     : '';
 
   return `
     <div class="book-cover">
       <div class="cover-wrapper">
         <div class="cover-placeholder">
-          <img src="${coverSrc}" alt="${get(book.title)}" class="book-cover-img">
+          <img src="${coverSrc}" alt="${get(book.title)}" class="book-cover-img" loading="lazy" decoding="async">
         </div>
         <div class="cover-popup-overlay">
-          <img src="${coverSrc}" alt="${get(book.title)}" class="cover-popup-img">
+          <img src="${coverSrc}" alt="${get(book.title)}" class="cover-popup-img" loading="lazy" decoding="async">
         </div>
       </div>
       <div class="cover-metadata">

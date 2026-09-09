@@ -897,10 +897,15 @@ body {
         gap: 2rem;
         padding: 1rem 0;
         flex: 1;
+        width: 100%;
+        max-width: 100%;
+        align-self: stretch;
     }
 
     .book-content {
         flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
         flex-direction: column;
         gap: 1.5rem;
         padding-right: 0;
@@ -1083,10 +1088,17 @@ body {
         gap: 1.5rem;
         padding: 0.5rem 0;
         overflow-x: auto;
+        flex: 0 1 100%;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        align-self: stretch;
     }
 
     .book-content {
         flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
         gap: 1rem;
     }
 
