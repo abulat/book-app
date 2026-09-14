@@ -128,6 +128,7 @@ function buildBookHTML(book, lang) {
       <div class="mobile-cover-tags" aria-label="${get(book.genre?.title) || 'Genre'}">${genreTags}</div>
       <div class="book-details">
         <div class="book-info-grid">
+          <h3 class="desktop-book-title">${get(book.title) || 'Book Title'}</h3>
           <div class="book-metadata-column">
             <div class="cover-metadata">
               <div class="metadata-item">
