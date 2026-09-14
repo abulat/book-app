@@ -101,11 +101,11 @@ function buildBookHTML(book, lang) {
   descriptionHTML += `</p>`;
 
   const previewLinkHTML = ebookPreview
-    ? `<a href="#" class="ebook-preview-link" data-book-id="${book.id}" data-lang="${lang}"><img src="images/preview-65.svg" alt="" class="ebook-preview-icon" aria-hidden="true" width="53" height="53">${previewText}</a>`
+    ? `<a href="#" class="ebook-preview-link" data-book-id="${book.id}" data-lang="${lang}"><img src="images/preview-65.svg" alt="" class="ebook-preview-icon" aria-hidden="true" width="106" height="106"><span>${previewText}</span></a>`
     : '';
 
   return `
-    <h3 class="book-title">${get(book.title) || 'Book Title'}</h3>
+    <p class="book-title">${get(book.title) || 'Book Title'}</p>
     <div class="book-layout">
       <div class="book-cover">
         <div class="cover-wrapper">
@@ -128,6 +128,7 @@ function buildBookHTML(book, lang) {
       <div class="mobile-cover-tags" aria-label="${get(book.genre?.title) || 'Genre'}">${genreTags}</div>
       <div class="book-details">
         <div class="book-info-grid">
+          <p class="desktop-book-title">${get(book.title) || 'Book Title'}</p>
           <div class="book-metadata-column">
             <div class="cover-metadata">
               <div class="metadata-item">
@@ -135,11 +136,11 @@ function buildBookHTML(book, lang) {
               </div>
             </div>
           </div>
+          ${previewLinkHTML ? `<div class="ebook-preview-wrapper">${previewLinkHTML}</div>` : ''}
         </div>
         ${descriptionHTML}
       </div>
     </div>
-    ${previewLinkHTML ? `<div class="ebook-preview-wrapper">${previewLinkHTML}</div>` : ''}
     <a href="${lang === 'en' && book.amazonUrl ? book.amazonUrl : '#contact'}" class="cta-button book-action-btn">${get(book.cta) || 'Get Your Copy'}</a>
   `;
 }
@@ -308,7 +309,7 @@ function scrollCarousel(direction) {
   if (!container) return;
 
   // Scroll by one book width (80% of container) plus gap
-  const scrollAmount = container.clientWidth * 0.865 + 3 * 16; // 3rem gap in pixels (assuming 16px = 1rem)
+  const scrollAmount = container.clientWidth * 0.865 + 4.7 * 16; // 3rem gap in pixels (assuming 16px = 1rem)
   const targetScroll = direction === 'left' 
     ? container.scrollLeft - scrollAmount 
     : container.scrollLeft + scrollAmount;
