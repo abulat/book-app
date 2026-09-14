@@ -194,6 +194,51 @@ describe('Book rendering', () => {
     expect(document.querySelector('.book-cover-img').getAttribute('src')).toBe('images/be.png');
   });
 
+  it('should separate tags from technical metadata and dismiss cover previews', () => {
+    const books = [{
+      id: 'book1',
+      title: { en: 'Book', be: 'Кніга' },
+      description: { en: 'Desc', be: 'Апісанне' },
+      genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+      pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+      release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+      cta: { en: 'Get', be: 'Купіць' },
+      cover: { en: 'images/en.png', be: 'images/be.png' },
+      amazonUrl: ''
+    }];
+
+    setBookData(books);
+    renderBooks('en');
+
+    expect(document.querySelector('.cover-metadata .genre-tag').textContent).toBe('Fiction');
+    expect(document.querySelector('.book-tech-details').textContent).toContain('142');
+    expect(document.querySelector('.book-tech-details').textContent).toContain('April');
+
+    const wrapper = document.querySelector('.cover-wrapper');
+    document.querySelector('.cover-popup-overlay').click();
+    expect(wrapper.classList.contains('is-preview-dismissed')).toBe(true);
+  });
+
+  it('should open the cover preview when the cover is clicked', () => {
+    const books = [{
+      id: 'book1',
+      title: { en: 'Book', be: 'Кніга' },
+      description: { en: 'Desc', be: 'Апісанне' },
+      genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction', be: 'Праза' } },
+      pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+      release: { title: { en: 'Release', be: 'Выданне' }, value: { en: 'April', be: 'Красавік' } },
+      cta: { en: 'Get', be: 'Купіць' },
+      cover: { en: 'images/en.png', be: 'images/be.png' },
+      amazonUrl: ''
+    }];
+
+    setBookData(books);
+    renderBooks('en');
+    document.querySelector('.cover-placeholder').click();
+
+    expect(document.querySelector('.cover-wrapper').classList.contains('is-preview-open')).toBe(true);
+  });
+
   it('should get book data', () => {
     const books = [{ id: 'book1' }];
     setBookData(books);
@@ -382,15 +427,52 @@ describe('Book rendering', () => {
     
     const bookContent = document.querySelector('.book-content');
     const title = bookContent.querySelector('.book-title');
-    const bookFlow = bookContent.querySelector('.book-flow');
+    const bookLayout = bookContent.querySelector('.book-layout');
     const description = bookDetails.querySelector('.book-description');
-    const button = bookDetails.querySelector('.book-action-btn');
     
     expect(title).not.toBeNull();
-    expect(bookFlow).not.toBeNull();
+    expect(bookLayout).not.toBeNull();
     expect(bookContent.firstElementChild).toBe(title);
     expect(description).not.toBeNull();
-    expect(button).not.toBeNull();
+    expect(bookContent.querySelector('.book-action-btn')).not.toBeNull();
+  });
+
+  it('should render the complete desktop book layout in the required order', () => {
+    setBookData([{
+      id: 'book-layout',
+      title: { en: 'Layout Book', be: 'Кніга Макет' },
+      description: { en: 'Book description', be: 'Апісанне кнігі' },
+      genre: { title: { en: 'Genre', be: 'Жанр' }, value: { en: 'Fiction, Drama', be: 'Проза, Драма' } },
+      pages: { title: { en: 'Pages', be: 'Старонкі' }, value: { en: '142', be: '140' } },
+      release: { title: { en: 'Release Date', be: 'Дата Выдання' }, value: { en: 'April 2025', be: 'Красавік 2025' } },
+      cta: { en: 'Order', be: 'Замовіць' },
+      cover: { en: 'images/cover.png', be: 'images/cover.png' },
+      ebook: 'Preview text',
+      amazonUrl: ''
+    }]);
+
+    document.body.innerHTML = '<div id="books-container" class="books-container"></div>';
+    renderBooks('en');
+
+    const book = document.querySelector('.book-content');
+    const layout = book.querySelector('.book-layout');
+    const infoGrid = book.querySelector('.book-info-grid');
+    const metadataColumn = book.querySelector('.book-metadata-column');
+    const technicalDetails = book.querySelector('.book-tech-details');
+
+    expect([...book.children].map(element => element.className)).toEqual([
+      'book-title',
+      'book-layout',
+      'ebook-preview-wrapper',
+      'cta-button book-action-btn'
+    ]);
+    expect(layout.querySelector('.book-cover')).not.toBeNull();
+    expect(infoGrid.querySelector('.book-description').textContent).toContain('Book description');
+    expect(metadataColumn.querySelector('.genre-tag').textContent).toBe('Fiction');
+    expect(technicalDetails.textContent).toContain('142');
+    expect(technicalDetails.textContent).toContain('April 2025');
+    expect(book.querySelector('.ebook-preview-link')).not.toBeNull();
+    expect(book.querySelector('.book-action-btn').textContent).toBe('Order');
   });
 
   it('should have book-description that grows to fill space', () => {
@@ -424,7 +506,7 @@ describe('Book rendering', () => {
     expect(bookDescription.classList.contains('book-description')).toBe(true);
   });
 
-  it('should position action button at bottom of book details', () => {
+  it('should position action button after the book layout', () => {
     const books = [
       {
         id: 'book1',
@@ -449,11 +531,8 @@ describe('Book rendering', () => {
     const bookDetails = document.querySelector('.book-details');
     const actionBtn = document.querySelector('.book-action-btn');
     
-    // Verify that action button is a child of book-details
-    expect(bookDetails.contains(actionBtn)).toBe(true);
-    
-    // Verify that action button is the last element in book-details
-    expect(bookDetails.lastElementChild).toBe(actionBtn);
+    expect(bookDetails.contains(actionBtn)).toBe(false);
+    expect(bookDetails.closest('.book-layout').nextElementSibling).toBe(actionBtn);
   });
 
   it('should truncate long descriptions to 200 characters without cutting words', () => {
