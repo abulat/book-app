@@ -117,15 +117,13 @@ function buildBookHTML(book, lang) {
           </div>
         </div>
         <div class="book-tech-details">
-              <div class="metadata-item">
-                <h4 class="metadata-label">${get(book.pages?.title) || 'Pages'}</h4>
-                <p class="metadata-value">${get(book.pages?.value)}</p>
-              </div>
-              <div class="metadata-item">
-                <h4 class="metadata-label">${get(book.release?.title) || 'Release Date'}</h4>
-                <p class="metadata-value">${get(book.release?.value)}</p>
-              </div>
-            </div>
+          <div class="metadata-item">
+          <p class="metadata-value pages-value"><img src="images/empty-papers-or-sheet-black-outline-19844.svg" alt="${get(book.pages?.title) || 'Pages'}" class="metadata-icon" width="24" height="24">${get(book.pages?.value)}</p>
+          </div>
+          <div class="metadata-item">
+            <p class="metadata-value pages-value"><img src="images/calendar-and-check-mark-11028.svg" alt="${get(book.release?.title) || 'Release Date'}" class="metadata-icon" width="24" height="24">${get(book.release?.value)}</p>
+          </div>
+        </div>
       </div>
       <div class="mobile-cover-tags" aria-label="${get(book.genre?.title) || 'Genre'}">${genreTags}</div>
       <div class="book-details">
@@ -136,9 +134,7 @@ function buildBookHTML(book, lang) {
                 <p class="metadata-value">${genreTags}</p>
               </div>
             </div>
-            
           </div>
-          
         </div>
         ${descriptionHTML}
       </div>

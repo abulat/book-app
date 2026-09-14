@@ -342,6 +342,7 @@ hr {
     grid-template-columns: minmax(140px, 1fr) minmax(0, 2fr);
     gap: 1rem 2rem;
     align-items: start;
+    height: calc(145px * 3 / 2);
 }
 
 .book-metadata-column {
@@ -603,6 +604,18 @@ hr {
     margin-bottom: 0.5rem;
     color: #333;
     display: block;
+}
+
+.metadata-icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.pages-value {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
 }
 
 .metadata-value {
@@ -987,6 +1000,7 @@ body {
     .book-info-grid {
         display: block;
         width: 100%;
+        height: auto;
     }
 
     .book-metadata-column,
