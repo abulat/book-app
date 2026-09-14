@@ -463,11 +463,12 @@ describe('Book rendering', () => {
     expect([...book.children].map(element => element.className)).toEqual([
       'book-title',
       'book-layout',
-      'ebook-preview-wrapper',
       'cta-button book-action-btn'
     ]);
     expect(layout.querySelector('.book-cover')).not.toBeNull();
-    expect(infoGrid.querySelector('.book-description').textContent).toContain('Book description');
+    expect(infoGrid.querySelector('.ebook-preview-wrapper')).not.toBeNull();
+    expect(infoGrid.querySelector('.book-metadata-column').nextElementSibling.className).toBe('ebook-preview-wrapper');
+    expect(book.querySelector('.book-description').textContent).toContain('Book description');
     expect(metadataColumn.querySelector('.genre-tag').textContent).toBe('Fiction');
     expect(technicalDetails.textContent).toContain('142');
     expect(technicalDetails.textContent).toContain('April 2025');
