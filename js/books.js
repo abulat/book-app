@@ -105,36 +105,42 @@ function buildBookHTML(book, lang) {
     : '';
 
   return `
-    <div class="book-cover">
-      <div class="cover-wrapper">
-        <div class="cover-placeholder">
-          <img src="${coverSrc}" alt="${get(book.title)}" class="book-cover-img" loading="lazy" decoding="async">
+    <h3 class="book-title">${get(book.title) || 'Book Title'}</h3>
+    <div class="book-layout">
+      <div class="book-cover">
+        <div class="cover-wrapper">
+          <div class="cover-placeholder">
+            <img src="${coverSrc}" alt="${get(book.title)}" class="book-cover-img" loading="lazy" decoding="async">
+          </div>
+          <div class="cover-popup-overlay">
+            <img src="${coverSrc}" alt="${get(book.title)}" class="cover-popup-img" loading="lazy" decoding="async">
+          </div>
         </div>
-        <div class="cover-popup-overlay">
-          <img src="${coverSrc}" alt="${get(book.title)}" class="cover-popup-img" loading="lazy" decoding="async">
-        </div>
-      </div>
-      <div class="cover-metadata">
-        <div class="metadata-item">
-          <h4 class="metadata-label">${get(book.genre?.title) || 'Genre'}</h4>
-          <p class="metadata-value">${genreTags}</p>
-        </div>
-        <div class="metadata-item">
-          <h4 class="metadata-label">${get(book.pages?.title) || 'Pages'}</h4>
-          <p class="metadata-value">${get(book.pages?.value)}</p>
-        </div>
-        <div class="metadata-item">
-          <h4 class="metadata-label">${get(book.release?.title) || 'Release Date'}</h4>
-          <p class="metadata-value">${get(book.release?.value)}</p>
+        <div class="book-tech-details">
+          <div class="metadata-item">
+          <p class="metadata-value pages-value"><img src="images/empty-papers-or-sheet-black-outline-19844.svg" alt="${get(book.pages?.title) || 'Pages'}" class="metadata-icon" width="24" height="24">${get(book.pages?.value)}</p>
+          </div>
+          <div class="metadata-item">
+            <p class="metadata-value pages-value"><img src="images/calendar-and-check-mark-11028.svg" alt="${get(book.release?.title) || 'Release Date'}" class="metadata-icon" width="24" height="24">${get(book.release?.value)}</p>
+          </div>
         </div>
       </div>
+      <div class="mobile-cover-tags" aria-label="${get(book.genre?.title) || 'Genre'}">${genreTags}</div>
+      <div class="book-details">
+        <div class="book-info-grid">
+          <div class="book-metadata-column">
+            <div class="cover-metadata">
+              <div class="metadata-item">
+                <p class="metadata-value">${genreTags}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        ${descriptionHTML}
+      </div>
     </div>
-    <div class="book-details">
-      <h3 class="book-title">${get(book.title) || 'Book Title'}</h3>
-      ${descriptionHTML}
-      ${previewLinkHTML ? `<div class="ebook-preview-wrapper">${previewLinkHTML}</div>` : ''}
-      <a href="${lang === 'en' && book.amazonUrl ? book.amazonUrl : '#contact'}" class="cta-button book-action-btn">${get(book.cta) || 'Get Your Copy'}</a>
-    </div>
+    ${previewLinkHTML ? `<div class="ebook-preview-wrapper">${previewLinkHTML}</div>` : ''}
+    <a href="${lang === 'en' && book.amazonUrl ? book.amazonUrl : '#contact'}" class="cta-button book-action-btn">${get(book.cta) || 'Get Your Copy'}</a>
   `;
 }
 
@@ -150,6 +156,28 @@ function createBookElement(book, lang) {
   div.dataset.bookId = book.id;
   div.innerHTML = buildBookHTML(book, lang);
   return div;
+}
+
+function attachCoverPreviewHandlers() {
+  document.querySelectorAll('.cover-placeholder').forEach(cover => {
+    cover.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      const wrapper = cover.closest('.cover-wrapper');
+      wrapper?.classList.remove('is-preview-dismissed');
+      wrapper?.classList.add('is-preview-open');
+    });
+  });
+
+  document.querySelectorAll('.cover-popup-overlay').forEach(preview => {
+    preview.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      const wrapper = preview.closest('.cover-wrapper');
+      wrapper?.classList.remove('is-preview-open');
+      wrapper?.classList.add('is-preview-dismissed');
+    });
+  });
 }
 
 /**
@@ -354,6 +382,7 @@ export function renderBooks(lang) {
 
   attachBookActionHandlers();
   attachEbookPreviewHandlers();
+  attachCoverPreviewHandlers();
   attachShowMoreHandlers();
   attachKeyboardNavigation();
   attachArrowButtonHandlers();

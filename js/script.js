@@ -1,5 +1,5 @@
 import { config } from './config.js';
-import { getDefaultLanguage, loadTranslationsData, loadAuthorData, loadBookData, setLanguage } from './app.js?v=20260714';
+import { getDefaultLanguage, loadTranslationsData, loadAuthorData, loadBookData, setLanguage } from './app.js?v=20260914-ui0012';
 
 function attachLanguageButtons() {
   document.querySelectorAll('.lang-btn').forEach(btn => {
