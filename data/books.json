@@ -16,7 +16,7 @@
           "be": "Жанр"
         },
         "value": {
-          "en": "Contemporary Fiction, Political Fiction, Short Stories, Social Commentary",
+          "en": "Contemporary Fiction, Political Fiction, Social Commentary",
           "be": "Мастацкая проза, сацыяльна-палітычная драма, дакументальная проза"
         }
       },
@@ -42,7 +42,7 @@
       },
       "cta": {
         "en": "Get your paperback or e-book copy via Amazon",
-        "be": "Электронная кніга (Звязацца з аўтарам)"
+        "be": "Звязацца з аўтарам"
       },
       "cover": {
         "en": "images/I-Plakaly-anioly-Cover-EN.png",
@@ -95,8 +95,8 @@
         }
       },
       "cta": {
-        "en": "E-Book (Contact the Author)",
-        "be": "Электронная кніга (Звязацца з аўтарам)"
+        "en": "Contact the Author",
+        "be": "Звязацца з аўтарам"
       },
       "cover": {
         "en": "images/вокладка-4.png",
@@ -111,7 +111,7 @@
     {
       "id": "book3",
       "title": {
-        "en": "Through Time Toward Destiny (Belaruaian language only)",
+        "en": "Through Time Toward Destiny",
         "be": "Праз час насустрач лёсу"
       },
       "description": {
@@ -149,14 +149,17 @@
         }
       },
       "cta": {
-        "en": "E-Book (Contact the Author)",
-        "be": "Электронная кніга (Звязацца з аўтарам)"
+        "en": "Contact the Author",
+        "be": "Звязацца з аўтарам"
       },
       "cover": {
         "en": "images/Скрозь час насустрач лёсу.jpg",
         "be": "images/Скрозь час насустрач лёсу.jpg"
       },
-      "ebook": "data/ebook/Скрозь час насустрач лёсу - Алесь Бігуд.epub",
+      "ebook": {
+        "en": "",
+        "be": "data/ebook/Скрозь час насустрач лёсу - Алесь Бігуд.epub"
+      },
       "amazonUrl": ""
     }
     
