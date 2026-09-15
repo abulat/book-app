@@ -309,7 +309,7 @@ function scrollCarousel(direction) {
   if (!container) return;
 
   // Scroll by one book width (80% of container) plus gap
-  const scrollAmount = container.clientWidth * 0.865 + 4.7 * 16; // 3rem gap in pixels (assuming 16px = 1rem)
+  const scrollAmount = container.clientWidth * 0.865 + 5 * 16; // 3rem gap in pixels (assuming 16px = 1rem)
   const targetScroll = direction === 'left' 
     ? container.scrollLeft - scrollAmount 
     : container.scrollLeft + scrollAmount;
