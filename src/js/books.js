@@ -62,6 +62,30 @@ function getLocalizedValue(obj, lang) {
   return obj[lang] || obj.en || null;
 }
 
+function buildDescriptionHTML(description, lang) {
+  const { truncated, isTruncated } = truncateText(description);
+  const showMoreText = getTranslation('books.showMore', lang) || 'Show more';
+  const showLessText = getTranslation('books.showLess', lang) || 'Show less';
+
+  let descriptionHTML = `<p class="book-description ${isTruncated ? 'truncated' : ''}" data-full-text="${escapeHtml(description)}" data-truncated-text="${escapeHtml(truncated)}">`;
+  descriptionHTML += `<span class="description-content">${escapeHtml(truncated)}</span>`;
+
+  if (isTruncated) {
+    descriptionHTML += `<a class="show-more-btn" data-expanded="false" style="display: inline-flex; gap: 4px; cursor: pointer;"><span class="show-more-text">${showMoreText}</span><span class="show-less-text" style="display: none;">${showLessText}</span></a>`;
+  }
+
+  descriptionHTML += `</p>`;
+  return descriptionHTML;
+}
+
+function buildMetadataRow(iconSrc, label, value) {
+  return `
+    <div class="metadata-item">
+      <p class="metadata-value pages-value"><img src="${iconSrc}" alt="${label}" class="metadata-icon" width="24" height="24">${value}</p>
+    </div>
+  `;
+}
+
 /**
  * Build book content HTML structure
  * @param {object} book - Book data object
@@ -72,37 +96,24 @@ function buildBookHTML(book, lang) {
   const get = (field) => getLocalizedValue(field, lang) || '';
   const coverSrc = get(book.cover) || 'images/placeholder-cover.png';
   
-  // Format genre values as tags
   const genreValue = get(book.genre?.value) || '';
   const genreTags = genreValue
     .split(',')
     .map(tag => `<span class="genre-tag">${tag.trim()}</span>`)
     .join('');
-  
-  // Truncate description
-  const description = get(book.description);
-  const { truncated, isTruncated } = truncateText(description);
 
-  // Get translations for buttons
-  const showMoreText = getTranslation('books.showMore', lang) || 'Show more';
-  const showLessText = getTranslation('books.showLess', lang) || 'Show less';
+  const description = get(book.description);
+  const descriptionHTML = buildDescriptionHTML(description, lang);
   const previewText = getTranslation('books.readPreview', lang) || 'Read preview';
   const ebookPreview = getEbookPreview(book, lang);
-
-  // Build description HTML with show more/less toggle
-  let descriptionHTML = `<p class="book-description ${isTruncated ? 'truncated' : ''}" data-full-text="${escapeHtml(description)}" data-truncated-text="${escapeHtml(truncated)}">`;
-  descriptionHTML += `<span class="description-content">${escapeHtml(truncated)}</span>`;
-
-  if (isTruncated) {
-    // Stripped out all line breaks inside this string so it doesn't push down
-    descriptionHTML += `<a class="show-more-btn" data-expanded="false" style="display: inline-flex; gap: 4px; cursor: pointer;"><span class="show-more-text">${showMoreText}</span><span class="show-less-text" style="display: none;">${showLessText}</span></a>`;
-  }
-
-  descriptionHTML += `</p>`;
-
   const previewLinkHTML = ebookPreview
     ? `<a href="#" class="ebook-preview-link" data-book-id="${book.id}" data-lang="${lang}"><img src="images/preview-65.svg" alt="" class="ebook-preview-icon" aria-hidden="true" width="106" height="106"><span>${previewText}</span></a>`
     : '';
+
+  const pagesLabel = get(book.pages?.title) || 'Pages';
+  const releaseLabel = get(book.release?.title) || 'Release Date';
+  const pagesValue = get(book.pages?.value);
+  const releaseValue = get(book.release?.value);
 
   return `
     <p class="book-title">${get(book.title) || 'Book Title'}</p>
@@ -117,12 +128,8 @@ function buildBookHTML(book, lang) {
           </div>
         </div>
         <div class="book-tech-details">
-          <div class="metadata-item">
-          <p class="metadata-value pages-value"><img src="images/empty-papers-or-sheet-black-outline-19844.svg" alt="${get(book.pages?.title) || 'Pages'}" class="metadata-icon" width="24" height="24">${get(book.pages?.value)}</p>
-          </div>
-          <div class="metadata-item">
-            <p class="metadata-value pages-value"><img src="images/calendar-and-check-mark-11028.svg" alt="${get(book.release?.title) || 'Release Date'}" class="metadata-icon" width="24" height="24">${get(book.release?.value)}</p>
-          </div>
+          ${buildMetadataRow('images/empty-papers-or-sheet-black-outline-19844.svg', pagesLabel, pagesValue)}
+          ${buildMetadataRow('images/calendar-and-check-mark-11028.svg', releaseLabel, releaseValue)}
         </div>
       </div>
       <div class="mobile-cover-tags" aria-label="${get(book.genre?.title) || 'Genre'}">${genreTags}</div>
