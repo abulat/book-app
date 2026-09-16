@@ -261,10 +261,13 @@ hr {
 }
 
 .carousel-wrapper {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+        "left right"
+        "container container";
     align-items: center;
-    justify-content: center;
-    gap: 2rem;
+    gap: 1rem 2rem;
     position: relative;
     width: 100%;
     max-width: 100%;
@@ -273,11 +276,11 @@ hr {
 }
 
 .carousel-arrow {
-    flex-shrink: 0;    /* You have this, which is good! */
+    flex-shrink: 0;
     width: 48px;
     height: 48px;
-    min-width: 48px;   /* FIX: Force minimum layout width boundary */
-    min-height: 48px;  /* FIX: Force minimum layout height boundary */
+    min-width: 48px;
+    min-height: 48px;
     border: 2px solid #333;
     background-color: #f9f9f9;
     border-radius: 50%;
@@ -286,7 +289,21 @@ hr {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10;        /* FIX: Pop them above layout overflow boundaries */
+    z-index: 10;
+}
+
+.carousel-arrow[data-direction="left"] {
+    grid-area: left;
+    justify-self: start;
+}
+
+.carousel-arrow[data-direction="right"] {
+    grid-area: right;
+    justify-self: end;
+}
+
+.books-container {
+    grid-area: container;
 }
 
 .carousel-arrow:hover:not(.disabled) {
@@ -952,8 +969,8 @@ body {
     }
 
     .carousel-wrapper {
-        flex-direction: column;
-        gap: 1rem;
+        grid-template-columns: auto 1fr auto;
+        gap: 0.75rem 1rem;
     }
 
     .carousel-arrow {
@@ -1226,8 +1243,8 @@ body {
     }
 
     .carousel-wrapper {
-        flex-direction: column;
-        gap: 0.05rem;
+        grid-template-columns: auto 1fr auto;
+        gap: 0.5rem 0.75rem;
     }
 
     .carousel-arrow {
