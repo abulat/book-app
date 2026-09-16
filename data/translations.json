@@ -1,12 +1,12 @@
 {
     "en": {
-        "site.title": "Ales Begood - Writer & Storyteller",
+        "site.title": "Ales Begood - Belarusian Writer & Storyteller",
         "site.authorName": "Ales Begood",
         "nav.home": "Home",
         "nav.about": "About",
         "nav.books": "Publications",
         "nav.contact": "Contact",
-        "hero.subtitle": "Writer & Storyteller",
+        "hero.subtitle": "Belarusian Writer, Storyteller and Poet",
         "hero.cta": "Discover More",
         "books.title": "Publications",
         "contact.title": "Get in Touch",
@@ -28,13 +28,13 @@
         "footer.copyright": "© 2024 Ales Begood. All rights reserved."
     },
   "be": {
-    "site.title": "Алесь Бігуд - Пісьменнік і Апавядальнік",
+    "site.title": "Алесь Бігуд - Беларускі пісьменнік і апавядальнік",
     "site.authorName": "Алесь Бігуд",
     "nav.home": "Галоўная",
     "nav.about": "Пра аўтара",
     "nav.books": "Публікацыі",
     "nav.contact": "Кантакты",
-    "hero.subtitle": "Пісьменнік і Апавядальнік",
+    "hero.subtitle": "Беларускі пісьменнік, апавядальнік і паэт",
     "hero.cta": "Даведацца Больш",
     "books.title": "Публікацыі",
     "contact.title": "Звязацца",
